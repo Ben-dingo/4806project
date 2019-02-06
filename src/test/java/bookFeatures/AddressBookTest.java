@@ -1,4 +1,5 @@
-package test;
+package bookFeatures;
+
 
 import static org.junit.Assert.*;
 

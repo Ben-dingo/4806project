@@ -11,17 +11,19 @@ public class BuddyInfo {
     private long id;
     private String name;
     private String phone;
+    private String address;
 
     @ManyToMany(mappedBy="entries")
     private List<AddressBook> books;
 
     public BuddyInfo() {
-        this("new", "new");
+        this("new", "new", "new");
     }
 
-    public BuddyInfo(String name, String phone) {
+    public BuddyInfo(String name, String phone, String address) {
         this.name =  name;
         this.phone = phone;
+        this.address = address;
         books = new ArrayList<AddressBook>();
     }
 
@@ -33,6 +35,8 @@ public class BuddyInfo {
         return phone;
     }
 
+    public String getAddress() { return address; }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -40,6 +44,8 @@ public class BuddyInfo {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public void setAddress(String address) { this.address = address; }
 
     public List<AddressBook> getBooks() {
         return books;
@@ -51,7 +57,7 @@ public class BuddyInfo {
 
     @Override
     public String toString() {
-        return "Name: " + name + "\tPhone: " + phone + "\n";
+        return "Name: " + name + "\tPhone: " + phone + "\tAddress: " + address + "\n";
     }
 
     @Override

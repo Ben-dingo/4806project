@@ -29,23 +29,28 @@ public class httpTest {
 	List<String> names;
 	List<String> phones;
 	List<String> assocs;
+	List<String> addresses;
 
 	@Test
 	public void addBooksAndCheck() throws Exception {
 		names = new ArrayList<String>();
 		phones = new ArrayList<String>();
 		assocs = new ArrayList<String>();
+		addresses = new ArrayList<String>();
 
 		names.add("Steve");
 		phones.add("Is Cat");
+		addresses.add("My House");
 		assocs.add("/buddy/1");
 
 		names.add("Captain Cool");
 		phones.add("888-8888");
+		addresses.add("Mt. Fuji");
 		assocs.add("/buddy/2");
 
 		names.add("Cutthroat");
 		phones.add("Phone Booth, West 8th Street");
+		addresses.add("Unknown");
 		assocs.add("/buddy/3");
 
 		String defaultBook = "{}";
@@ -72,7 +77,8 @@ public class httpTest {
 	private void makeTestInfo(int buddyId) throws Exception {
 		String retVal = "{";
 		retVal += "\"name\" : \"" + names.get(buddyId) + "\",";
-		retVal += "\"phone\" : \"" + phones.get(buddyId) + "\"";
+		retVal += "\"phone\" : \"" + phones.get(buddyId) + "\",";
+		retVal += "\"address\" : \"" + addresses.get(buddyId) + "\"";
 		retVal += "}";
 
 		this.mockMvc.perform(post("/buddy").contentType(MediaType.APPLICATION_JSON_UTF8).content(retVal)).andExpect(status().is2xxSuccessful());
@@ -85,8 +91,10 @@ public class httpTest {
 	private void getTestInfo(int bookId, int buddyId) throws Exception {
 		String nameTest = "\"name\" : \"" + names.get(buddyId) + "\"";
 		String phoneTest = "\"phone\" : \"" + phones.get(buddyId) + "\"";
+		String addressTest = "\"address\" : \"" + addresses.get(buddyId) + "\"";
 
 		this.mockMvc.perform(get("/book/"+ bookId +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
 		this.mockMvc.perform(get("/book/"+ bookId +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(phoneTest)));
+		this.mockMvc.perform(get("/book/"+ bookId +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(addressTest)));
 	}
 }

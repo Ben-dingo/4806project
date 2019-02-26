@@ -6,20 +6,22 @@
 </head>
 <body>
 <div th:replace="homePage :: idEntryForm"></div>
-<header th:text="'Address Book #' + ${id}"/>
-<table>
-	<tr>
-		<th>Name</th>
-		<th>Address</th>
-		<th>Phone</th>
-	</tr>
-	<th:block th:each="buddy : ${list}">
+<div id="results">
+	<header th:text="'Address Book #' + ${id}"/>
+	<table>
 		<tr>
-			<td th:text="${buddy.name}"></td>
-			<td th:text="${buddy.address}"></td>
-			<td th:text="${buddy.phone}"></td>
+			<th>Name</th>
+			<th>Address</th>
+			<th>Phone</th>
 		</tr>
-	</th:block>
-</table>
+		<th:block th:each="buddy : ${list}">
+			<tr>
+				<td th:text="${buddy.name}"></td>
+				<td th:text="${buddy.address}"></td>
+				<td th:text="${buddy.phone}"></td>
+			</tr>
+		</th:block>
+	</table>
+</div>
 </body>
 </html>

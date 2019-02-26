@@ -6,7 +6,15 @@
 </head>
 <body>
 <div th:fragment="idEntryForm">
-	<script src="../static/script.js"></script>
+	<script>
+		$("form").submit(function(e) {
+			//e.preventDefault();
+			//e.returnValue = false;
+			console.log("Whoa! Force");
+
+			// do things
+		});
+	</script>
 	Please enter the address book number you wish to view.
 	<form id="submitButton" action="/">
 		<input type="text" name="bookID">

@@ -15,7 +15,11 @@ public class MainController {
 	BookRepository repo;
 
 	@GetMapping("/")
-	public String addressBook(@RequestParam(name="bookID") String bookID, Model model) {
+	public String addressBook(@RequestParam(name="bookID", required=false, defaultValue="") String bookID, Model model) {
+		if (bookID.equals("")) {
+			return "homePage";
+		}
+
 		Long id;
 		try {
 			id = Long.parseLong(bookID);
@@ -33,10 +37,5 @@ public class MainController {
 			model.addAttribute("errMess", bookID + " does not exist.");
 			return "error";
 		}
-	}
-
-	@GetMapping("/")
-	public String homePage(Model model) {
-		return "homePage";
 	}
 }

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Address Book</title>
+</head>
+<body>
+<div th:fragment="idEntryForm">
+	<script src="script.js"></script>
+	Please enter the address book number you wish to view.
+	<form id="submitButton" action="/">
+		<input type="number" name="id">
+		<input type="submit" value="Submit">
+	</form>
+</div>
+
+</body>
+</html>

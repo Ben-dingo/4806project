@@ -1,11 +1,6 @@
 package bookFeatures;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +16,10 @@ public class MainController {
 
 	@GetMapping("/")
 	public String addressBook(@RequestParam(name="bookID", required=false, defaultValue="NAN") String bookID, Model model) {
+		if (bookID.equals("")) {
+			return "homePage";
+		}
+
 		Long id;
 		try {
 			id = Long.parseLong(bookID);

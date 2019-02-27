@@ -8,20 +8,20 @@
 <div th:fragment="idEntryForm">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script>
-		$("#submitButton").on('submit', function(e) {
+		$("form").submit(function(e) {
 			e.preventDefault();
 			e.returnValue = false;
 
 			// do things
 			$.ajax({
-				url: window.location.host + "/book/" + document.getElementById('idBox').value +"/entries",
+				url: window.location.protocol + "//" + window.location.hostname + "/book/" + document.getElementById('idBox').value +"/entries",
 				data: {
 					format: 'json'
 				},
 				error: function() {
 					$('#results').html('Communication Error.');
 				},
-				dataType: 'jsonp',
+				dataType: 'json',
 				success: function(data) {
 					var id = document.getElementById('idBox').value;
 					if (data.length == 0) {

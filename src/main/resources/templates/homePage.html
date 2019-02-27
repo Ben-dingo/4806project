@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="header">
 	<meta charset="UTF-8">
 	<title>Address Book</title>
-</head>
-<body>
-<div th:fragment="idEntryForm">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script th:src="@{/js/script.js}"></script>
-	Please enter the address book number you wish to view.
-	<form id="submitButton" action="/">
-		<input id=idBox type="text" name="bookID">
-		<input type="submit" value="Submit">
+</head>
+<body>
+<div th:fragment="viewBookForm">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script th:src="@{/js/script.js}"></script>
+	Enter the address book number you wish to view.
+	<form id="viewBook" action="/">
+		<input id=idBoxView type="number" name="bookID">
+		<input type="submit" value="View Address Book">
+	</form>
+</div>
+<div th:fragment="addBookForm">
+	<form id="addBook" action="/addBook">
+		<input type="submit" value="Add New Address Book">
 	</form>
 </div>
 <div id="results">

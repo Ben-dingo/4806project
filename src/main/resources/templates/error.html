@@ -1,11 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>Address Book Error!</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<head th:replace="homePage :: header"></head>
 <body>
-<div th:replace="homePage :: idEntryForm"></div>
+<div th:replace="homePage :: viewBookForm"></div>
 <div id="results">
 	<p th:text="${errMess}" />
 </div>

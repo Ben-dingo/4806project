@@ -129,7 +129,7 @@ $(document).ready(function() {
 						}
 						$.ajax({
 							url: window.location.protocol + "//" + window.location.hostname + "/book" + id,
-							data: '/buddy' + buddyID,
+							data: '/buddy/' + buddyID,
 							processData: false,
 							contentType: "text/uri-list",
 							type: 'POST',

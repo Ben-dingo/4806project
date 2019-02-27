@@ -76,7 +76,10 @@ $(document).ready(function() {
         // do things
         $.ajax({
             url: window.location.protocol + "//" + window.location.hostname + "/book",
-            data: "{}",
+            data: '{}',
+			processData: false,
+			contentType: "application/json",
+			type: 'POST',
             error: function() {
                 $('#results').html('Failed to create new address book.');
             },
@@ -91,8 +94,7 @@ $(document).ready(function() {
 					}
 					drawTable("");
                 }
-            },
-            type: 'POST'
+            }
         });
     });
 
@@ -104,11 +106,14 @@ $(document).ready(function() {
 			// do things
 			$.ajax({
 				url: window.location.protocol + "//" + window.location.hostname + "/buddy",
-				data: {
-					name: $("#nameInput").val(),
-					phone: $("#phoneInput").val(),
-					address: $("#addressInput").val()
-				},
+				data: '{' +
+					'"name": "' + $("#nameInput").val() +'",' +
+					'"phone": "' + $("#phoneInput").val() +'",' +
+					'"address": "' + $("#phoneInput").val() +'",' +
+					'}',
+				processData: false,
+				contentType: "application/json",
+				type: 'POST',
 				error: function() {
 					$('#results').html('Failed to add buddy.');
 				},
@@ -124,7 +129,10 @@ $(document).ready(function() {
 						}
 						$.ajax({
 							url: window.location.protocol + "//" + window.location.hostname + "/book" + id,
-							data: "/buddy/" + buddyID,
+							data: '/buddy' + buddyID,
+							processData: false,
+							contentType: "text/uri-list",
+							type: 'POST',
 							error: function() {
 								$('#results').html('Failed to associate buddy.');
 							},
@@ -135,12 +143,10 @@ $(document).ready(function() {
 								} else {
 									reloadTable();
 								}
-							},
-							type: 'POST'
+							}
 						});
 					}
-				},
-				type: 'POST'
+				}
 			});
 		});
 	}

@@ -59,45 +59,6 @@ $(document).ready(function() {
 		});
 	}
 
-	var id = getUrlVars()["id"];
-	$("#viewBook").submit(function(event) {
-		event.preventDefault();
-		event.returnValue = false;
-		id = $("#idBoxView").val();
-
-		// do things
-		reloadTable();
-	});
-
-	$("#addBook").submit(function(event) {
-        event.preventDefault();
-        event.returnValue = false;
-
-        // do things
-        $.ajax({
-            url: window.location.protocol + "//" + window.location.hostname + "/book",
-            data: '{}',
-			processData: false,
-			contentType: "application/json",
-			type: 'POST',
-            error: function() {
-                $('#results').html('Failed to create new address book.');
-            },
-            dataType: 'json',
-            success: function(data) {
-                if (data.length == 0) {
-                    $('#results').html("Failed to create new address book.");
-                } else {
-					returnURL = data._links.self.href.split("/");
-					for (var n = 0; n < returnURL.length; n++) {
-						id = returnURL[n];
-					}
-					drawTable("");
-                }
-            }
-        });
-    });
-
 	function attachBuddyInputForm() {
 		$("#addBuddy").submit(function(event) {
 			event.preventDefault();
@@ -150,4 +111,45 @@ $(document).ready(function() {
 			});
 		});
 	}
+
+	var id = getUrlVars()["id"];
+	$("#viewBook").submit(function(event) {
+		event.preventDefault();
+		event.returnValue = false;
+		id = $("#idBoxView").val();
+
+		// do things
+		reloadTable();
+	});
+
+	$("#addBook").submit(function(event) {
+        event.preventDefault();
+        event.returnValue = false;
+
+        // do things
+        $.ajax({
+            url: window.location.protocol + "//" + window.location.hostname + "/book",
+            data: '{}',
+			processData: false,
+			contentType: "application/json",
+			type: 'POST',
+            error: function() {
+                $('#results').html('Failed to create new address book.');
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.length == 0) {
+                    $('#results').html("Failed to create new address book.");
+                } else {
+					returnURL = data._links.self.href.split("/");
+					for (var n = 0; n < returnURL.length; n++) {
+						id = returnURL[n];
+					}
+					drawTable("");
+                }
+            }
+        });
+    });
+
+	attachBuddyInputForm();
 });

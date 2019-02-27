@@ -109,7 +109,7 @@ $(document).ready(function() {
 				data: '{' +
 					'"name": "' + $("#nameInput").val() +'",' +
 					'"phone": "' + $("#phoneInput").val() +'",' +
-					'"address": "' + $("#phoneInput").val() +
+					'"address": "' + $("#addressInput").val() + '"'+
 					'}',
 				processData: false,
 				contentType: "application/json",

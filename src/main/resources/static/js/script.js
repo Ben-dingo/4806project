@@ -99,7 +99,7 @@ $(document).ready(function() {
 							},
 							dataType: 'json',
 							success: function(data) {
-								$('#results').html('Failed to associate buddy.');
+								reloadTable();
 							}
 						});
 					}

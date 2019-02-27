@@ -27,7 +27,7 @@ $(document).ready(function() {
 
 	function reloadTable() {
 		$.ajax({
-			url: window.location.protocol + "//" + window.location.hostname + "/book/" + id,
+			url: window.location.protocol + "//" + window.location.hostname + "/book/" + id + "/entries",
 			data: {
 				format: 'json'
 			},

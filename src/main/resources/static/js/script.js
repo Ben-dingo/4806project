@@ -69,9 +69,7 @@ $(document).ready(function() {
         // do things
         $.ajax({
             url: window.location.protocol + "//" + window.location.hostname + "/book",
-            data: {
-				format: 'json'
-            },
+            data: "{}",
             error: function() {
                 $('#results').html('Failed to create new address book.');
             },

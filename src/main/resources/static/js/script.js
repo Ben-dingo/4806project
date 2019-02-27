@@ -128,7 +128,7 @@ $(document).ready(function() {
 							buddyID = returnURL[n];
 						}
 						$.ajax({
-							url: window.location.protocol + "//" + window.location.hostname + "/book" + id,
+							url: window.location.protocol + "//" + window.location.hostname + "/book/" + id,
 							data: '/buddy/' + buddyID,
 							processData: false,
 							contentType: "text/uri-list",

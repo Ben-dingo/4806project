@@ -14,12 +14,18 @@ $(document).ready(function() {
 
 	function drawTable(contents) {
 		var output = "<header>Address Book #" + id + "</header>";
+		output += "<table>\n" +
+			"<tr>" +
+			"<th>Name</th>" +
+			"<th>Address</th>" +
+			"<th>Phone</th>" +
+			"</tr>"
 		output += contents;
 		output += "</table>";
 		output += "<form id=\"addBuddy\">" +
-			"<input id=nameInput type=\"text\" name=\"buddyName\">" +
-			"<input id=phoneInput type=\"text\" name=\"buddyPhone\">" +
-			"<input id=addressInput type=\"text\" name=\"buddyAddress\">" +
+			"Name: <input id=nameInput type=\"text\" name=\"buddyName\"><br>" +
+			"Phone: <input id=phoneInput type=\"text\" name=\"buddyPhone\"><br>" +
+			"Address: <input id=addressInput type=\"text\" name=\"buddyAddress\"><br>" +
 			"<input type=\"submit\" value=\"Add Buddy\">" +
 			"</form>";
 		$('#results').html(output);

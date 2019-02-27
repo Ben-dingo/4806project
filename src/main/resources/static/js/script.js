@@ -59,7 +59,7 @@ $(document).ready(function() {
 		id = $("#idBoxView").val();
 
 		// do things
-
+		reloadTable();
 	});
 
 	$("#addBook").submit(function(event) {

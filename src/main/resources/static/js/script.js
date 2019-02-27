@@ -99,11 +99,7 @@ $(document).ready(function() {
 							},
 							dataType: 'json',
 							success: function(data) {
-								if (data.length == 0) {
-									$('#results').html('Failed to associate buddy.');
-								} else {
-									reloadTable();
-								}
+								$('#results').html('Failed to associate buddy.');
 							}
 						});
 					}

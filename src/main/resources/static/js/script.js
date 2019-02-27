@@ -29,6 +29,7 @@ $(document).ready(function() {
 			"<input type=\"submit\" value=\"Add Buddy\">" +
 			"</form>";
 		$('#results').html(output);
+		attachBuddyInputForm();
 	}
 
 	function reloadTable() {
@@ -95,50 +96,52 @@ $(document).ready(function() {
         });
     });
 
-	$("#addBuddy").submit(function(event) {
-		event.preventDefault();
-		event.returnValue = false;
+	function attachBuddyInputForm() {
+		$("#addBuddy").submit(function(event) {
+			event.preventDefault();
+			event.returnValue = false;
 
-		// do things
-		$.ajax({
-			url: window.location.protocol + "//" + window.location.hostname + "/buddy",
-			data: {
-				name: $("#nameInput").val(),
-				phone: $("#phoneInput").val(),
-				address: $("#addressInput").val()
-			},
-			error: function() {
-				$('#results').html('Failed to add buddy.');
-			},
-			dataType: 'json',
-			success: function(data) {
-				if (data.length == 0) {
+			// do things
+			$.ajax({
+				url: window.location.protocol + "//" + window.location.hostname + "/buddy",
+				data: {
+					name: $("#nameInput").val(),
+					phone: $("#phoneInput").val(),
+					address: $("#addressInput").val()
+				},
+				error: function() {
 					$('#results').html('Failed to add buddy.');
-				} else {
-					returnURL = data._links.self.href.split("/");
-					var buddyID;
-					for (var n = 0; n < returnURL.length; n++) {
-						buddyID = returnURL[n];
-					}
-					$.ajax({
-						url: window.location.protocol + "//" + window.location.hostname + "/book" + id,
-						data: "/buddy/" + buddyID,
-						error: function() {
-							$('#results').html('Failed to associate buddy.');
-						},
-						dataType: 'json',
-						success: function(data) {
-							if (data.length == 0) {
+				},
+				dataType: 'json',
+				success: function(data) {
+					if (data.length == 0) {
+						$('#results').html('Failed to add buddy.');
+					} else {
+						returnURL = data._links.self.href.split("/");
+						var buddyID;
+						for (var n = 0; n < returnURL.length; n++) {
+							buddyID = returnURL[n];
+						}
+						$.ajax({
+							url: window.location.protocol + "//" + window.location.hostname + "/book" + id,
+							data: "/buddy/" + buddyID,
+							error: function() {
 								$('#results').html('Failed to associate buddy.');
-							} else {
-								reloadTable();
-							}
-						},
-						type: 'POST'
-					});
-				}
-			},
-			type: 'POST'
+							},
+							dataType: 'json',
+							success: function(data) {
+								if (data.length == 0) {
+									$('#results').html('Failed to associate buddy.');
+								} else {
+									reloadTable();
+								}
+							},
+							type: 'POST'
+						});
+					}
+				},
+				type: 'POST'
+			});
 		});
-	});
+	}
 });

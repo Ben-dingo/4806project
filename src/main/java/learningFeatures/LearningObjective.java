@@ -15,6 +15,9 @@ public class LearningObjective {
 	@ManyToMany(mappedBy="entries")
 	private List<Course> courses;
 
+	@ManyToMany(mappedBy="entries")
+	private List<Category> categories;
+
 	public LearningObjective() {
 		this("new", "new");
 	}
@@ -23,6 +26,7 @@ public class LearningObjective {
 		this.name =  name;
 		this.description = description;
 		this.courses = new ArrayList<Course>();
+		this.categories = new ArrayList<Category>();
 	}
 
 	public String getName() {
@@ -39,6 +43,14 @@ public class LearningObjective {
 
 	public void setCourse(List<Course> courses) {
 		this.courses = courses;
+	}
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
 	@Override

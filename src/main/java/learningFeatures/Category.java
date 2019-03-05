@@ -5,26 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Course {
+public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "course_objective",
+	@JoinTable(name = "category_objective",
 			joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "obj_id", referencedColumnName = "id"))
-	protected List<learningFeatures.LearningObjective> entries;
+	protected List<LearningObjective> entries;
 
-
-	public Course() {
+	public Category() {
 		this("new");
 	}
 
-	public Course(String name) {
+	public Category(String name) {
 		this.name = name;
-		entries = new ArrayList<learningFeatures.LearningObjective>();
+		entries = new ArrayList<LearningObjective>();
 	}
 
 	public void removeObjective(LearningObjective obj) {

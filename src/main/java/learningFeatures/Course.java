@@ -50,4 +50,14 @@ public class Course {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String toString()
+	{
+		String returning = name + " (";
+		for(LearningObjective objectives : entries){
+			returning += objectives.toString();
+		}
+		returning += ")";
+		return returning;
+	}
 }

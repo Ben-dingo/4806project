@@ -71,4 +71,9 @@ public class LearningObjective {
 	public int hashCode() {
 		return Long.hashCode(id);
 	}
+
+	public String toString(){
+		String returning = name + ": " + description + ", ";
+		return returning;
+	}
 }

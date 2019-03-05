@@ -4,9 +4,8 @@ curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Imperative Prog
 curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Pointer Math", "description": "Student is capable of getting to the correct locations in memory given a type definition."}' http://random4806.herokuapp.com/objective
 curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Requirements Engineering", "description": "Student is capable of writing well-defined and clear requirments."}' http://random4806.herokuapp.com/objective
 
-curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Introduction to Programming"}' http://random4806.herokuapp.com/course
 curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Introduction to Magic"}' http://random4806.herokuapp.com/course
-curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Hard Pointless Crap"}' http://random4806.herokuapp.com/course
+curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Introduction to Programming"}' http://random4806.herokuapp.com/course
 
 curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Communication Skills"}' http://random4806.herokuapp.com/category
 curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Technical Skills"}' http://random4806.herokuapp.com/category
@@ -21,6 +20,6 @@ curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/5' http://random4
 curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/1' http://random4806.herokuapp.com/category/8/entries
 curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/5' http://random4806.herokuapp.com/category/8/entries
 
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/2' http://random4806.herokuapp.com/course/9/entries
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/3' http://random4806.herokuapp.com/course/9/entries
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/4' http://random4806.herokuapp.com/course/9/entries
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/2' http://random4806.herokuapp.com/category/9/entries
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/3' http://random4806.herokuapp.com/category/9/entries
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/4' http://random4806.herokuapp.com/category/9/entries

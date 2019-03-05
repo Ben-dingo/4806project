@@ -33,18 +33,14 @@ public class AddressBook {
 	public List<BuddyInfo> getEntries() {
 		return entries;
 	}
-
 	public void setEntries(List<BuddyInfo> entries) {
 		this.entries = entries;
 	}
 
-	@Override
-	public String toString() {
-		String retVal = "" + id + System.lineSeparator();
-		for (BuddyInfo b : entries) {
-			retVal += b.toString() + System.lineSeparator();
-		}
-		return retVal;
+
+
+	public long getId() {
+		return id;
 	}
 
 	public static void main(String[] args) {

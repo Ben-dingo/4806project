@@ -17,9 +17,15 @@ public class MainController {
 	BookRepository repo;
 
 	@GetMapping("/")
-	public String addressBook(@RequestParam(name="bookID", required=false, defaultValue="") String bookID, Model model) {
+	public String home(Model model) {
+		return "homePage";
+	}
+
+	@GetMapping("/viewBook")
+	public String viewBook(@RequestParam(name="bookID", required=false, defaultValue="") String bookID, Model model) {
 		if (bookID.equals("")) {
-			return "homePage";
+			model.addAttribute("errMess", "No Book ID Found!");
+			return "error";
 		}
 
 		Long id;
@@ -39,5 +45,13 @@ public class MainController {
 			model.addAttribute("errMess", bookID + " does not exist.");
 			return "error";
 		}
+	}
+
+	@GetMapping("/addBook")
+	public String viewBook(Model model) {
+		AddressBook createdBook = new AddressBook();
+		repo.save(createdBook);
+		model.addAttribute(createdBook.getId());
+		return "addressBook";
 	}
 }

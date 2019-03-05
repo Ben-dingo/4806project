@@ -2,24 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="header">
 	<meta charset="UTF-8">
-	<title>Address Book</title>
+	<title>Course Viewer</title>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script th:src="@{/js/script.js}"></script>
 </head>
 <body>
-<div th:fragment="viewBookForm">
-	Enter the address book number you wish to view.
+<div th:fragment="RadioForm">
+	Select a search method.
 	<form id="viewBook" action="/viewBook">
-		<input id=idBoxView type="number" name="bookID">
-		<input type="submit" value="View Address Book">
+		<input type="radio" name="SearchType" value="prog" onClick="progSearch()">Search by Program<br>
+		<input type="radio" name="SearchType" value="course" onClick="courseSearch()">Search by Course<br>
+		<input type="radio" name="SearchType" value="cat" onClick="catSearch()">Search by Category<br>
 	</form>
 </div>
-<div th:fragment="addBookForm">
-	<form id="addBook" action="/addBook">
-		<input type="submit" value="Add New Address Book">
+
+<div id="searchForm">
+	<form id="varSearch">
+		<label id="lab">Program name: </label>
+		<input type="text" id="varia" name="progName" value="Sample text">
 	</form>
 </div>
+
+<div id="YearForm" style="visibility:hidden">
+	<form id="YearSearch">
+		Year: <input type="text" name="yearVal" value="1"><br>
+	</form>
+</div>
+
+<div id="SubForm">
+	<form id="Submitting">
+		<button type="button" onclick="searchFunc()">Search</button>
+	</form>
+</div>
+
 <div id="results">
 </div>
 </body>
+
+<script language="Javascript">
+    function progSearch() {
+        document.getElementById('lab').innerHTML = 'Program Name: ';
+        document.getElementById("YearForm").style.visibility="hidden";
+    }
+    function yearSearch() {
+        document.getElementById('lab').innerHTML = 'Program Name: ';
+        document.getElementById("YearForm").style.visibility="visible";
+    }
+    function courseSearch() {
+        document.getElementById('lab').innerHTML = 'Course Name: ';
+        document.getElementById("YearForm").style.visibility="hidden";
+    }
+    function catSearch() {
+        document.getElementById('lab').innerHTML = 'Category Name: ';
+        document.getElementById("YearForm").style.visibility="hidden";
+    }
+
+    function searchFunc() {
+        var radios = document.getElementsByName("SearchType");
+
+		if(radios[0].checked){alert("program")}
+		else if(radios[1].checked){alert("course")}
+		else if(radios[2].checked){alert("catagories")}
+    }
+</script>
+
+<!--<input type="radio" name="SearchType" value="year" onClick="yearSearch()">Search Program by Year-->
+
 </html>

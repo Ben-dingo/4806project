@@ -42,6 +42,8 @@ public class httpTest {
 		objAssocs = new ArrayList<String>();
 		courseNames = new ArrayList<String>();
 		courseAssocs = new ArrayList<String>();
+		categoryNames = new ArrayList<String>();
+		categoryAssocs = new ArrayList<String>();
 
 		objectNames.add("Negotiate with Demons");
 		descriptions.add("Student is capable of negotiating favourable terms with demons.");
@@ -55,21 +57,21 @@ public class httpTest {
 		descriptions.add("Can use C Arrays");
 		objAssocs.add("/objective/3");
 
-		courseNames.add("Magic 101");
-		courseAssocs.add("/course/4");
-
-		courseNames.add("Pointless Hard Things 101");
-		courseAssocs.add("/course/5");
-
-		categoryNames.add("Communication Skills");
-		categoryAssocs.add("/category/6");
-
-		categoryAssocs.add("Technical Skills");
-		categoryAssocs.add("/category/7");
-
 		objectNames.add("Writing Requirements");
 		descriptions.add("Can write well defined requirements");
-		objAssocs.add("/objective/8");
+		objAssocs.add("/objective/4");
+
+		courseNames.add("Magic 101");
+		courseAssocs.add("/course/5");
+
+		courseNames.add("Software Engineering 101");
+		courseAssocs.add("/course/6");
+
+		categoryNames.add("Communication Skills");
+		categoryAssocs.add("/category/7");
+
+		categoryNames.add("Technical Skills");
+		categoryAssocs.add("/category/8");
 
 		for (int n = 0; n < objectNames.size(); n++) {
 			postObjective(n);
@@ -79,7 +81,7 @@ public class httpTest {
 			postCourse(n);
 		}
 
-		for (int n = 0; n < courseNames.size(); n++) {
+		for (int n = 0; n < categoryNames.size(); n++) {
 			postCategory(n);
 		}
 
@@ -102,7 +104,7 @@ public class httpTest {
 		testCourseObjective(1, 3);
 
 		testCategoryObjective(0, 0);
-		testCategoryObjective(0, 1);
+		testCategoryObjective(0, 3);
 
 		testCategoryObjective(1, 1);
 		testCategoryObjective(1, 2);
@@ -130,15 +132,15 @@ public class httpTest {
 		retVal += "\"name\" : \"" + categoryNames.get(categoryID) + "\"";
 		retVal += "}";
 
-		this.mockMvc.perform(post("/course").contentType(MediaType.APPLICATION_JSON_UTF8).content(retVal)).andExpect(status().is2xxSuccessful());
+		this.mockMvc.perform(post("/category").contentType(MediaType.APPLICATION_JSON_UTF8).content(retVal)).andExpect(status().is2xxSuccessful());
 	}
 
 	private void associateObjectiveCourse(int courseID, int objID) throws Exception {
 		this.mockMvc.perform(post(courseAssocs.get(courseID) + "/entries").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
 	}
 
-	private void associateObjectiveCategory(int courseID, int objID) throws Exception {
-		this.mockMvc.perform(post(categoryAssocs.get(courseID) + "/entries").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
+	private void associateObjectiveCategory(int categoryID, int objID) throws Exception {
+		this.mockMvc.perform(post(categoryAssocs.get(categoryID) + "/entries").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
 	}
 
 	private void testCourseObjective(int courseID, int objID) throws Exception {

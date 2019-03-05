@@ -3,6 +3,7 @@
 	<persistence-unit name="jpa-test" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>learningFeatures.Course</class>
+		<class>learningFeatures.Category</class>
 		<class>learningFeatures.LearningObjective</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />

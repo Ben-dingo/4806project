@@ -44,7 +44,7 @@ public class CourseRest {
     public String viewCourse() {
         String returning = "";
         for (Course courses : courses) {
-                returning += courses.toString();
+                returning += courses.toString() + " ";
         }
         return returning;
     }

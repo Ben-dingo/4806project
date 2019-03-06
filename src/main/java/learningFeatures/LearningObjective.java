@@ -73,7 +73,7 @@ public class LearningObjective {
 	}
 
 	public String toString(){
-		String returning = name + ": " + description + ", ";
+		String returning = name + ": " + description;
 		return returning;
 	}
 }

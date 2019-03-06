@@ -55,8 +55,9 @@ public class Course {
 	{
 		String returning = name + " (";
 		for(LearningObjective objectives : entries){
-			returning += objectives.toString();
+			returning += objectives.toString() + ", ";
 		}
+		returning = returning.substring(0, returning.length()-2);
 		returning += ")";
 		return returning;
 	}

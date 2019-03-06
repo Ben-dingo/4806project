@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        url: "http://localhost:8080/viewCourses?id=1"
+        url: window.location.protocol + "//" + window.location.hostname + /viewCourses"
     }).then(function(data) {
         $('.courseInfo').append(data.toString());
     });

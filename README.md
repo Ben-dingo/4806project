@@ -8,3 +8,4 @@ have the searches for courses now; program search or category search are yet to 
 that the course is offered in yet, so the search will show all the courses (if there were multiple over multiple years). The next steps
 we must take are essentially to complete all the missing features that are mentioned previously. Currently we only have one test that is 
 quite complex, so for the next milestone we should implement many smaller tests and also test all the features that will be implemented.
+Lastly, we need to implement the ability to export the results as a CSV file.

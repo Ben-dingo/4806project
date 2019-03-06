@@ -7,9 +7,9 @@
 	<script th:src="@{/js/address.js}"></script>
 </head>
 <body>
-<div th:fragment="RadioForm">
+<div id="RadioForm">
 	Select a search method.
-	<form id="viewBook" action="/viewBook">
+	<form id="radioSet">
 		<input type="radio" name="SearchType" value="prog" onClick="progSearch()">Search by Program<br>
 		<input type="radio" name="SearchType" value="course" onClick="courseSearch()">Search by Course<br>
 		<input type="radio" name="SearchType" value="cat" onClick="catSearch()">Search by Category<br>
@@ -38,6 +38,13 @@
 <div>
     <p class="courseInfo">CourseList contains: </p>
 </div>
+
+<div id="AdminForm">
+	<form id="Adminlogon">
+		<input type="text" id="password" value="password">
+		<button type="button" onclick="logFunc()">Admin Login</button>
+	</form>
+</div>
 </body>
 
 <script language="Javascript">
@@ -63,7 +70,14 @@
 
 		if(radios[0].checked){alert(window.location.protocol + "//" + window.location.hostname + "/viewCourse?id=" + document.getElementById("varia").value)}
 		else if(radios[1].checked){location.href= window.location.protocol + "//" + window.location.hostname + "/viewCourse?id=" + document.getElementById("varia").value}
-		else if(radios[2].checked){alert("catagories")}
+		else if(radios[2].checked){location.href= window.location.protocol + "//" + window.location.hostname + "/viewCategory?id=" + document.getElementById("varia").value}
+		else{alert("Please select a search type.");}
+    }
+
+    function logFunc() {
+        var password = document.getElementById("password").value;
+        if(password == "BigBen69"){location.href= "admin"}
+        else{alert("THERE WILL BE CONSEQUENCES!");}
     }
 </script>
 

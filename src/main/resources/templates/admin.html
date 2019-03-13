@@ -21,6 +21,7 @@
         <input type="radio" name="funcType" value="newObjective" onClick="funcPrep(2)">newObjective(objectName,objectDescription)<br>
         <input type="radio" name="funcType" value="viewObjective" onClick="funcPrep(1)">viewObjective(objectName)<br>
         <input type="radio" name="funcType" value="viewObjectives" onClick="funcPrep(0)">viewObjectives()<br>
+        <input type="radio" name="funcType" value="viewObjectiveCourses" onClick="funcPrep(1)">viewObjectiveCourses(objectName)<br>
     </form>
 </div>
 
@@ -74,21 +75,21 @@
         }
         if(paras === 0){
             $.ajax({
-                url: window.location.protocol + "//" + window.location.hostname + ":8090/"+ functionType
+                url: window.location.protocol + "//" + window.location.hostname + "/"+ functionType
             }).then(function(data) {
                 alert(data);
             });
         }
         else if(paras === 1){
             $.ajax({
-                url: window.location.protocol + "//" + window.location.hostname + ":8090/"+ functionType + "?id=" + parameter1
+                url: window.location.protocol + "//" + window.location.hostname + "/"+ functionType + "?id=" + parameter1
             }).then(function(data) {
                 alert(data);
             });
         }
         else{
             $.ajax({
-                url: window.location.protocol + "//" + window.location.hostname + ":8090/"+ functionType + "?id=" + parameter1 + "&name=" + parameter2
+                url: window.location.protocol + "//" + window.location.hostname + "/"+ functionType + "?id=" + parameter1 + "&name=" + parameter2
             }).then(function(data) {
                 alert(data);
             });

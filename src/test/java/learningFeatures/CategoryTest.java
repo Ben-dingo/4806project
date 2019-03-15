@@ -40,13 +40,13 @@ public class CategoryTest extends TestCase {
 
     public void testAddRemoveObjective() {
         category.addObjective(lo);
-        assertEquals(lo, category.getEntries().get(0));
+        assertEquals(lo, category.getLearningObjectives().get(0));
         category.removeObjective(lo);
-        assertTrue(category.getEntries().isEmpty());
+        assertTrue(category.getLearningObjectives().isEmpty());
     }
 
     public void testSetGetEntries() {
-        category.setEntries(list);
-        assertEquals(list, category.getEntries());
+        category.setLearningObjectives(list);
+        assertEquals(list, category.getLearningObjectives());
     }
 }

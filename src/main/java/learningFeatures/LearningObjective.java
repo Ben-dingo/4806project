@@ -12,10 +12,10 @@ public class LearningObjective {
 	private String name;
 	private String description;
 
-	@ManyToMany(mappedBy="entries")
+	@ManyToMany(mappedBy= "learningObjectives")
 	private List<Course> courses;
 
-	@ManyToMany(mappedBy="entries")
+	@ManyToMany(mappedBy= "learningObjectives")
 	private List<Category> categories;
 
 	public LearningObjective() {

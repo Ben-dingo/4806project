@@ -15,7 +15,7 @@ public class Course {
 	@JoinTable(name = "course_objective",
 			joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "obj_id", referencedColumnName = "id"))
-	protected List<learningFeatures.LearningObjective> entries;
+	protected List<learningFeatures.LearningObjective> learningObjectives;
 
 
 	public Course() {
@@ -24,23 +24,23 @@ public class Course {
 
 	public Course(String name) {
 		this.name = name;
-		entries = new ArrayList<learningFeatures.LearningObjective>();
+		learningObjectives = new ArrayList<learningFeatures.LearningObjective>();
 	}
 
 	public void removeObjective(LearningObjective obj) {
-		entries.remove(obj);
+		learningObjectives.remove(obj);
 	}
 
 	public void addObjective(LearningObjective obj) {
-		entries.add(obj);
+		learningObjectives.add(obj);
 	}
 
-	public List<LearningObjective> getEntries() {
-		return entries;
+	public List<LearningObjective> getLearningObjectives() {
+		return learningObjectives;
 	}
 
-	public void setEntries(List<LearningObjective> entries) {
-		this.entries = entries;
+	public void setLearningObjectives(List<LearningObjective> entries) {
+		this.learningObjectives = entries;
 	}
 
 	public String getName() {
@@ -54,7 +54,7 @@ public class Course {
 	public String toString()
 	{
 		String returning = name + " (";
-		for(LearningObjective objectives : entries){
+		for(LearningObjective objectives : learningObjectives){
 			returning += objectives.toString() + ", ";
 		}
 		returning = returning.substring(0, returning.length()-2);

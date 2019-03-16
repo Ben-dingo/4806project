@@ -11,16 +11,16 @@ curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Introduction to
 curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Communication Skills"}' http://random4806.herokuapp.com/category
 curl -i -X POST -H "Content-Type:application/json" -d '{"name": "Technical Skills"}' http://random4806.herokuapp.com/category
 
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/1' http://random4806.herokuapp.com/course/6/entries
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/2' http://random4806.herokuapp.com/course/6/entries
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/1' http://random4806.herokuapp.com/course/6/learningObjectives
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/2' http://random4806.herokuapp.com/course/6/learningObjectives
 
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/3' http://random4806.herokuapp.com/course/7/entries
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/4' http://random4806.herokuapp.com/course/7/entries
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/5' http://random4806.herokuapp.com/course/7/entries
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/3' http://random4806.herokuapp.com/course/7/learningObjectives
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/4' http://random4806.herokuapp.com/course/7/learningObjectives
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/5' http://random4806.herokuapp.com/course/7/learningObjectives
 
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/1' http://random4806.herokuapp.com/category/8/entries
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/5' http://random4806.herokuapp.com/category/8/entries
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/1' http://random4806.herokuapp.com/category/8/learningObjectives
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/5' http://random4806.herokuapp.com/category/8/learningObjectives
 
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/2' http://random4806.herokuapp.com/category/9/entries
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/3' http://random4806.herokuapp.com/category/9/entries
-curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/4' http://random4806.herokuapp.com/category/9/entries
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/2' http://random4806.herokuapp.com/category/9/learningObjectives
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/3' http://random4806.herokuapp.com/category/9/learningObjectives
+curl -i -X POST -H "Content-Type:text/uri-list" -d '/objective/4' http://random4806.herokuapp.com/category/9/learningObjectives

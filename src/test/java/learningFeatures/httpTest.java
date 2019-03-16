@@ -181,26 +181,26 @@ public class httpTest {
 	}
 
 	private void associateObjectiveCourse(int courseID, int objID) throws Exception {
-		this.mockMvc.perform(post(courseAssocs.get(courseID) + "/entries").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
+		this.mockMvc.perform(post(courseAssocs.get(courseID) + "/learningObjectives").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
 	}
 
 	private void associateObjectiveCategory(int categoryID, int objID) throws Exception {
-		this.mockMvc.perform(post(categoryAssocs.get(categoryID) + "/entries").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
+		this.mockMvc.perform(post(categoryAssocs.get(categoryID) + "/learningObjectives").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
 	}
 
 	private void testCourseObjective(int courseID, int objID) throws Exception {
 		String nameTest = "\"name\" : \"" + objectNames.get(objID) + "\"";
 		String descTest = "\"description\" : \"" + descriptions.get(objID) + "\"";
 
-		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
-		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(descTest)));
+		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
+		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(descTest)));
 	}
 
 	private void testCategoryObjective(int categoryID, int objID) throws Exception {
 		String nameTest = "\"name\" : \"" + objectNames.get(objID) + "\"";
 		String descTest = "\"description\" : \"" + descriptions.get(objID) + "\"";
 
-		this.mockMvc.perform(get(categoryAssocs.get(categoryID) +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
-		this.mockMvc.perform(get(categoryAssocs.get(categoryID) +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(descTest)));
+		this.mockMvc.perform(get(categoryAssocs.get(categoryID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
+		this.mockMvc.perform(get(categoryAssocs.get(categoryID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(descTest)));
 	}
 }

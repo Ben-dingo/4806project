@@ -15,7 +15,7 @@ public class Category {
 	@JoinTable(name = "category_objective",
 			joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "obj_id", referencedColumnName = "id"))
-	protected List<LearningObjective> entries;
+	protected List<LearningObjective> learningObjectives;
 
 	public Category() {
 		this("new");
@@ -23,23 +23,29 @@ public class Category {
 
 	public Category(String name) {
 		this.name = name;
-		entries = new ArrayList<LearningObjective>();
+		learningObjectives = new ArrayList<LearningObjective>();
+	}
+
+	public void removeObjective(LearningObjective obj, boolean b) {
+		learningObjectives.remove(obj);
+		if (b) {
+			obj.removeCategory(this, false);
+		}
 	}
 
 	public void removeObjective(LearningObjective obj) {
-		entries.remove(obj);
+		removeObjective(obj, true);
+	}
+
+	public void addObjective(LearningObjective obj, boolean b) {
+		learningObjectives.add(obj);
+		if (b) {
+			obj.addCategory(this, false);
+		}
 	}
 
 	public void addObjective(LearningObjective obj) {
-		entries.add(obj);
-	}
-
-	public List<LearningObjective> getEntries() {
-		return entries;
-	}
-
-	public void setEntries(List<LearningObjective> entries) {
-		this.entries = entries;
+		addObjective(obj, true);
 	}
 
 	public String getName() {

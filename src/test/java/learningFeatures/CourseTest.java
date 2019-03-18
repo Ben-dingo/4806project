@@ -10,10 +10,12 @@ public class CourseTest extends TestCase {
     private LearningObjective lo;
     private LearningObjective newLo;
     private ArrayList<LearningObjective> addLo;
+    private AcademicYear academicYear;
 
     protected void setUp() {
         course = new Course("Course1");
         lo = new LearningObjective("currLo", "currDesc");
+        academicYear = new AcademicYear();
         addLo = new ArrayList<>();
         newLo = new LearningObjective("newLo", "newDesc");
         addLo.add(lo);
@@ -38,18 +40,19 @@ public class CourseTest extends TestCase {
 
     public void testAddRemoveObjective() {
         course.addObjective(lo);
-        assertEquals(lo, course.getEntries().get(0));
+        assertTrue(course.learningObjectives.contains(lo));
+        assertTrue(lo.courses.contains(course));
         course.removeObjective(lo);
-        assertTrue(course.getEntries().isEmpty());
+        assertTrue(course.learningObjectives.isEmpty());
+        assertTrue(lo.courses.isEmpty());
     }
 
-    public void testSetGetEntries() {
-        course.setEntries(addLo);
-        assertEquals(addLo, course.getEntries());
-    }
-
-    public void testToString() {
-        course.setEntries(addLo);
-        assertEquals("Course1 (currLo: currDesc, newLo: newDesc)", course.toString());
+    public void testAddRemoveAcademicYear() {
+        course.addAcademicYear(academicYear);
+        assertTrue(course.academicYears.contains(academicYear));
+        assertTrue(academicYear.courses.contains(course));
+        course.removeAcademicYear(academicYear);
+        assertTrue(course.academicYears.isEmpty());
+        assertTrue(academicYear.courses.isEmpty());
     }
 }

@@ -36,7 +36,7 @@
 </div>
 
 <div>
-    <p class="courseInfo">CourseList contains: </p>
+    <p id="table"></p>
 </div>
 
 <div id="AdminForm">
@@ -66,13 +66,50 @@
     }
 
     function searchFunc() {
-        var radios = document.getElementsByName("SearchType");
-
-		if(radios[0].checked){alert(window.location.protocol + "//" + window.location.hostname + "/viewCourse?id=" + document.getElementById("varia").value)}
-		else if(radios[1].checked){location.href= window.location.protocol + "//" + window.location.hostname + "/viewCourse?id=" + document.getElementById("varia").value}
-		else if(radios[2].checked){location.href= window.location.protocol + "//" + window.location.hostname + "/viewCategory?id=" + document.getElementById("varia").value}
+        let radios = document.getElementsByName("SearchType");
+		if(radios[0].checked)
+		{
+			alert("Search by program not yet implimented");
+		}
+		else if(radios[1].checked)
+		{
+			$.ajax({
+				url: window.location.protocol + "//" + window.location.hostname + "/viewCourse?id=" + document.getElementById("varia").value
+			}).then(function(data){
+				tableFunc(data, "Course");
+			});
+		}
+		else if(radios[2].checked)
+		{
+			$.ajax({
+				url: window.location.protocol + "//" + window.location.hostname + "/viewCat?id=" + document.getElementById("varia").value
+			}).then(function(data){
+				tableFunc(data,"Category");
+			});
+		}
 		else{alert("Please select a search type.");}
     }
+
+    function tableFunc(data, searchType){
+		let results = data.toString().slice(0, -1).split("(");
+
+		let objectives = results[1].split(",");
+		var output = "<header>Search by " + searchType + ": " + document.getElementById("varia").value + "</header>";
+		output += "<table border='5'>\n" +
+				"<tr>" +
+				"<th>Outcome Name</th>" +
+				"<th>Outcome description</th>" +
+				"</tr>";
+		for (var i = 0; i < objectives.length; i++) {
+			let objective = objectives[i].split(":");
+			output += "<tr>" +
+					"<th>" + objective[0] + "</th>" +
+					"<th>" + objective[1] + "</th>" +
+					"</tr>";
+		}
+		output += "</table>";
+		document.getElementById("table").innerHTML = output;
+	}
 
     function logFunc() {
         var password = document.getElementById("password").value;

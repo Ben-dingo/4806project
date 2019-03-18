@@ -95,14 +95,5 @@
             });
         }
     }
-
-    function searchFunc() {
-        var radios = document.getElementsByName("SearchType");
-
-        if(radios[0].checked){alert(window.location.protocol + "//" + window.location.hostname + "/viewCourse?id=" + document.getElementById("varia").value)}
-        else if(radios[1].checked){location.href= window.location.protocol + "//" + window.location.hostname + "/viewCourse?id=" + document.getElementById("varia").value}
-        else if(radios[2].checked){location.href= window.location.protocol + "//" + window.location.hostname + "/viewCategory?id=" + document.getElementById("varia").value}
-        else{alert("Please select a search type.");}
-    }
 </script>
 </html>

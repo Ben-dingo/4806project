@@ -10,7 +10,6 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
-	private int year;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "course_objective",
@@ -20,12 +19,11 @@ public class Course {
 
 
 	public Course() {
-		this("new", 0);
+		this("new");
 	}
 
-	public Course(String name, int year) {
+	public Course(String name) {
 		this.name = name;
-		this.year = year;
 		entries = new ArrayList<learningFeatures.LearningObjective>();
 	}
 
@@ -51,14 +49,6 @@ public class Course {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
 	}
 
 	public String toString()

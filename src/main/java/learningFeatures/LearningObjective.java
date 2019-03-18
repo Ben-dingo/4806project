@@ -18,6 +18,9 @@ public class LearningObjective {
 	@ManyToMany(mappedBy="entries")
 	private List<Category> categories;
 
+	@ManyToMany(mappedBy = "entries")
+	private List<AcademicYear> academicYear;
+
 	public LearningObjective() {
 		this("new", "new");
 	}
@@ -27,6 +30,7 @@ public class LearningObjective {
 		this.description = description;
 		this.courses = new ArrayList<Course>();
 		this.categories = new ArrayList<Category>();
+		this.academicYear = new ArrayList<AcademicYear>();
 	}
 
 	public String getName() {
@@ -59,6 +63,14 @@ public class LearningObjective {
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+
+	public List<AcademicYear> getAcademicYear() {
+		return academicYear;
+	}
+
+	public void setAcademicYear(List<AcademicYear> academicYear) {
+		this.academicYear = academicYear;
 	}
 
 	@Override

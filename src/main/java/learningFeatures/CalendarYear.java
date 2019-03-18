@@ -6,17 +6,18 @@ import java.util.List;
 
 @Entity
 public class CalendarYear {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private int year;
 
+    @ManyToMany(mappedBy= "calendarYears")
+    protected List<Course> courses;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "calendarYear",
-            joinColumns = @JoinColumn(name = "calendarYear_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "obj_id", referencedColumnName = "id"))
-    protected List<LearningObjective> learningObjectives;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="program_id")
+    private Program program;
 
     public CalendarYear() {
         this(0);
@@ -24,7 +25,8 @@ public class CalendarYear {
 
     public CalendarYear(int year) {
         this.year = year;
-        learningObjectives = new ArrayList<>();
+        this.program = null;
+        courses = new ArrayList<>();
     }
 
     public void setYear(int year) {
@@ -35,25 +37,43 @@ public class CalendarYear {
         return year;
     }
 
-    public void removeObjective(LearningObjective obj, boolean b) {
-        learningObjectives.remove(obj);
+    public void removeCourse(Course course, boolean b) {
+        courses.remove(course);
         if (b) {
-            obj.removeCalendarYear(this, false);
+            course.removeCalendarYear(this, false);
         }
     }
 
-    public void removeObjective(LearningObjective obj) {
-        removeObjective(obj, true);
+    public void removeCourse(Course course) {
+        removeCourse(course, true);
     }
 
-    public void addObjective(LearningObjective obj, boolean b) {
-        learningObjectives.add(obj);
+    public void addCourse(Course course, boolean b) {
+        courses.add(course);
         if (b) {
-            obj.addCalendarYear(this, false);
+            course.addCalendarYear(this, false);
         }
     }
 
-    public void addObjective(LearningObjective obj) {
-        addObjective(obj, true);
+    public void addCourse(Course course) {
+        addCourse(course, true);
+    }
+
+    public void setProgram(Program program, boolean b) {
+        if (this.program != null) {
+            this.program.removeCalendarYear(this, false);
+        }
+        this.program = program;
+        if (b && this.program != null) {
+            program.addCalendarYear(this, false);
+        }
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        setProgram(program, true);
     }
 }

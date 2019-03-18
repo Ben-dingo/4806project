@@ -5,16 +5,16 @@ import junit.framework.TestCase;
 public class CalendarYearTest extends TestCase {
 
     private CalendarYear calendarYear;
-    private LearningObjective learningObjective;
+    private Course course;
 
     protected void setUp() {
         calendarYear = new CalendarYear();
-        learningObjective = new LearningObjective("name", "description");
+        course = new Course("name");
     }
 
     protected void tearDown() {
         calendarYear = null;
-        learningObjective = null;
+        course = null;
     }
 
     public void testGetYear() {
@@ -27,11 +27,11 @@ public class CalendarYearTest extends TestCase {
     }
 
     public void testAddRemoveObjectives() {
-        calendarYear.addObjective(learningObjective);
-        assertTrue(learningObjective.calendarYears.contains(calendarYear));
-        assertTrue(calendarYear.learningObjectives.contains(learningObjective));
-        calendarYear.removeObjective(learningObjective);
-        assertTrue(learningObjective.calendarYears.isEmpty());
-        assertTrue(calendarYear.learningObjectives.isEmpty());
+        calendarYear.addCourse(course);
+        assertTrue(course.calendarYears.contains(calendarYear));
+        assertTrue(calendarYear.courses.contains(course));
+        calendarYear.removeCourse(course);
+        assertTrue(course.calendarYears.isEmpty());
+        assertTrue(calendarYear.courses.isEmpty());
     }
 }

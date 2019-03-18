@@ -14,6 +14,9 @@ public class Program {
 	@OneToMany(mappedBy = "program")
 	protected List<AcademicYear> academicYears;
 
+	@OneToMany(mappedBy = "program")
+	protected List<CalendarYear> calendarYears;
+
 	public Program() {
 		this("new");
 	}
@@ -21,6 +24,7 @@ public class Program {
 	public Program(String name) {
 		this.name = name;
 		academicYears = new ArrayList<>();
+		calendarYears = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -51,5 +55,27 @@ public class Program {
 
 	public void removeAcademicYear(AcademicYear year) {
 		removeAcademicYear(year, true);
+	}
+
+	public void addCalendarYear(CalendarYear year, boolean b) {
+		calendarYears.add(year);
+		if (b) {
+			year.setProgram(this, false);
+		}
+	}
+
+	public void addCalendarYear(CalendarYear year) {
+		addCalendarYear(year, true);
+	}
+
+	public void removeCalendarYear(CalendarYear year, boolean b) {
+		calendarYears.remove(year);
+		if (b) {
+			year.setProgram(null, false);
+		}
+	}
+
+	public void removeCalendarYear(CalendarYear year) {
+		removeCalendarYear(year, true);
 	}
 }

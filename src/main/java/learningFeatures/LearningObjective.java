@@ -18,9 +18,6 @@ public class LearningObjective {
 	@ManyToMany(mappedBy= "learningObjectives")
 	protected List<Category> categories;
 
-	@ManyToMany(mappedBy = "learningObjectives")
-	protected List<CalendarYear> calendarYears;
-
 	public LearningObjective() {
 		this("new", "new");
 	}
@@ -30,7 +27,6 @@ public class LearningObjective {
 		this.description = description;
 		this.courses = new ArrayList<Course>();
 		this.categories = new ArrayList<Category>();
-		this.calendarYears = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -116,28 +112,6 @@ public class LearningObjective {
 
 	public void removeCategory(Category category) {
 		removeCategory(category, true);
-	}
-
-	public void removeCalendarYear(CalendarYear calendarYear, boolean b) {
-		calendarYears.remove(calendarYear);
-		if (b) {
-			calendarYear.removeObjective(this, false);
-		}
-	}
-
-	public void removeCalendarYear(CalendarYear calendarYear) {
-		removeCalendarYear(calendarYear, true);
-	}
-
-	public void addCalendarYear(CalendarYear calendarYear, boolean b) {
-		calendarYears.add(calendarYear);
-		if (b) {
-			calendarYear.addObjective(this, false);
-		}
-	}
-
-	public void addCalendarYear(CalendarYear calendarYear) {
-		addCalendarYear(calendarYear, true);
 	}
 
 }

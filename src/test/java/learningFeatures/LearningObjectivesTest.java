@@ -9,20 +9,17 @@ public class LearningObjectivesTest extends TestCase {
     private LearningObjective lo;
     private Course course1;
     private Category category1;
-    private CalendarYear calendarYear;
 
     protected void setUp() {
         lo = new LearningObjective("loName", "loDesc");
         course1 = new Course("Course1");
         category1 = new Category("Category1");
-        calendarYear = new CalendarYear(2019);
     }
 
     protected void tearDown() {
         lo = null;
         course1 = null;
         category1 = null;
-        calendarYear = null;
     }
 
     public void testGetName() {
@@ -59,14 +56,5 @@ public class LearningObjectivesTest extends TestCase {
         lo.removeCategory(category1);
         assertTrue(lo.categories.isEmpty());
         assertTrue(category1.learningObjectives.isEmpty());
-    }
-
-    public void testAddRemoveCalendarYear() {
-        lo.addCalendarYear(calendarYear);
-        assertTrue(lo.calendarYears.contains(calendarYear));
-        assertTrue(calendarYear.learningObjectives.contains(lo));
-        lo.removeCalendarYear(calendarYear);
-        assertTrue(lo.calendarYears.isEmpty());
-        assertTrue(calendarYear.learningObjectives.isEmpty());
     }
 }

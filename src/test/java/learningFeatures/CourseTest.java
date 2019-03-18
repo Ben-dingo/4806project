@@ -12,7 +12,7 @@ public class CourseTest extends TestCase {
     private ArrayList<LearningObjective> addLo;
 
     protected void setUp() {
-        course = new Course("Course1");
+        course = new Course("Course1", 1);
         lo = new LearningObjective("currLo", "currDesc");
         addLo = new ArrayList<>();
         newLo = new LearningObjective("newLo", "newDesc");
@@ -36,6 +36,15 @@ public class CourseTest extends TestCase {
         assertEquals("newName", course.getName());
     }
 
+    public void testGetYear() {
+        assertEquals(1, course.getYear());
+    }
+
+    public void testSetYear() {
+        course.setYear(2);
+        assertEquals(2, course.getYear());
+    }
+    
     public void testAddRemoveObjective() {
         course.addObjective(lo);
         assertEquals(lo, course.getEntries().get(0));

@@ -26,20 +26,26 @@ public class Category {
 		learningObjectives = new ArrayList<LearningObjective>();
 	}
 
-	public void removeObjective(LearningObjective obj) {
+	public void removeObjective(LearningObjective obj, boolean b) {
 		learningObjectives.remove(obj);
+		if (b) {
+			obj.removeCategory(this, false);
+		}
+	}
+
+	public void removeObjective(LearningObjective obj) {
+		removeObjective(obj, true);
+	}
+
+	public void addObjective(LearningObjective obj, boolean b) {
+		learningObjectives.add(obj);
+		if (b) {
+			obj.addCategory(this, false);
+		}
 	}
 
 	public void addObjective(LearningObjective obj) {
-		learningObjectives.add(obj);
-	}
-
-	public List<LearningObjective> getLearningObjectives() {
-		return learningObjectives;
-	}
-
-	public void setLearningObjectives(List<LearningObjective> entries) {
-		this.learningObjectives = entries;
+		addObjective(obj, true);
 	}
 
 	public String getName() {

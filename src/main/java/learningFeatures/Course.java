@@ -17,6 +17,12 @@ public class Course {
 			inverseJoinColumns = @JoinColumn(name = "obj_id", referencedColumnName = "id"))
 	protected List<learningFeatures.LearningObjective> learningObjectives;
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "course_academicYear",
+			joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "academicYear_id", referencedColumnName = "id"))
+	protected List<learningFeatures.AcademicYear> academicYears;
+
 
 	public Course() {
 		this("new");
@@ -27,20 +33,26 @@ public class Course {
 		learningObjectives = new ArrayList<learningFeatures.LearningObjective>();
 	}
 
-	public void removeObjective(LearningObjective obj) {
+	public void removeObjective(LearningObjective obj, boolean b) {
 		learningObjectives.remove(obj);
+		if (b) {
+			obj.removeCourse(this, false);
+		}
+	}
+
+	public void removeObjective(LearningObjective obj) {
+		removeObjective(obj, true);
+	}
+
+	public void addObjective(LearningObjective obj, boolean b) {
+		learningObjectives.add(obj);
+		if (b) {
+			obj.addCourse(this, false);
+		}
 	}
 
 	public void addObjective(LearningObjective obj) {
-		learningObjectives.add(obj);
-	}
-
-	public List<LearningObjective> getLearningObjectives() {
-		return learningObjectives;
-	}
-
-	public void setLearningObjectives(List<LearningObjective> entries) {
-		this.learningObjectives = entries;
+		addObjective(obj, true);
 	}
 
 	public String getName() {
@@ -51,6 +63,7 @@ public class Course {
 		this.name = name;
 	}
 
+	@Deprecated
 	public String toString()
 	{
 		String returning = name + " (";

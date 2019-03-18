@@ -38,18 +38,8 @@ public class CourseTest extends TestCase {
 
     public void testAddRemoveObjective() {
         course.addObjective(lo);
-        assertEquals(lo, course.getLearningObjectives().get(0));
+        assertTrue(course.learningObjectives.contains(lo));
         course.removeObjective(lo);
-        assertTrue(course.getLearningObjectives().isEmpty());
-    }
-
-    public void testSetGetEntries() {
-        course.setLearningObjectives(addLo);
-        assertEquals(addLo, course.getLearningObjectives());
-    }
-
-    public void testToString() {
-        course.setLearningObjectives(addLo);
-        assertEquals("Course1 (currLo: currDesc, newLo: newDesc)", course.toString());
+        assertTrue(course.learningObjectives.isEmpty());
     }
 }

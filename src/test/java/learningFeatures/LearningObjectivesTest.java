@@ -18,17 +18,7 @@ public class LearningObjectivesTest extends TestCase {
     protected void setUp() {
         lo = new LearningObjective("loName", "loDesc");
         course1 = new Course("Course1");
-        course2 = new Course("Course2");
-        course3 = new Course("Course3");
         category1 = new Category("Category1");
-        category2 = new Category("Category2");
-        courses = new ArrayList<>();
-        courses.add(course1);
-        courses.add(course2);
-        courses.add(course3);
-        categories = new ArrayList<>();
-        categories.add(category1);
-        categories.add(category2);
     }
 
     protected void tearDown() {
@@ -60,19 +50,17 @@ public class LearningObjectivesTest extends TestCase {
         assertEquals("newDesc", lo.getDescription());
     }
 
-    public void testSetGetCourses() {
-        lo.setCourse(courses);
-        assertEquals(courses, lo.getCourses());
+    public void testAddRemoveCourses() {
+        lo.addCourse(course1);
+        assertTrue(lo.courses.contains(course1));
+        lo.removeCourse(course1);
+        assertTrue(lo.courses.isEmpty());
     }
 
-    public void testSetGetCategories() {
-        lo.setCategories(categories);
-        assertEquals(categories, lo.getCategories());
-    }
-
-    public void testToString(){
-        lo.setName("loName");
-        lo.setDescription("loDesc");
-        assertEquals("loName: loDesc", lo.toString());
+    public void testAddRemoveCategories() {
+        lo.addCategory(category1);
+        assertTrue(lo.categories.contains(category1));
+        lo.removeCategory(category1);
+        assertTrue(lo.categories.isEmpty());
     }
 }

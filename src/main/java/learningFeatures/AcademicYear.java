@@ -27,4 +27,46 @@ public class AcademicYear {
 		this.program = null;
 		courses = new ArrayList<Course>();
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void addCourse(Course course, boolean b) {
+		courses.add(course);
+		if (b) {
+			course.addAcademicYear(this, false);
+		}
+	}
+
+	public void addCourse(Course course) {
+		addCourse(course, true);
+	}
+
+	public void removeCourse(Course course, boolean b) {
+		courses.remove(course);
+		if (b) {
+			course.removeAcademicYear(this, false);
+		}
+	}
+
+	public void removeCourse(Course course) {
+		removeCourse(course, true);
+	}
+
+	public void setProgram(Program program, boolean b) {
+		this.program.removeAcademicYear(this, false);
+		this.program = program;
+		if (b) {
+			program.addAcademicYear(this, true);
+		}
+	}
+
+	public void setProgram(Program program) {
+		setProgram(program, true);
+	}
 }

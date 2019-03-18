@@ -33,6 +33,28 @@ public class Course {
 		learningObjectives = new ArrayList<learningFeatures.LearningObjective>();
 	}
 
+	public void addAcademicYear(AcademicYear year, boolean b) {
+		academicYears.add(year);
+		if (b) {
+			year.addCourse(this, false);
+		}
+	}
+
+	public void addAcademicYear(AcademicYear year) {
+		addAcademicYear(year, true);
+	}
+
+	public void removeAcademicYear(AcademicYear year, boolean b) {
+		academicYears.remove(year);
+		if (b) {
+			year.removeCourse(this, false);
+		}
+	}
+
+	public void removeAcademicYear(AcademicYear year) {
+		removeAcademicYear(year, true);
+	}
+
 	public void removeObjective(LearningObjective obj, boolean b) {
 		learningObjectives.remove(obj);
 		if (b) {

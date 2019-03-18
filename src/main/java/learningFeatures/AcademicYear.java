@@ -12,7 +12,7 @@ public class AcademicYear {
 	private String name;
 
 	@ManyToMany(mappedBy= "academicYears")
-	private List<Course> courses;
+	protected List<Course> courses;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="program_id")
@@ -59,11 +59,17 @@ public class AcademicYear {
 	}
 
 	public void setProgram(Program program, boolean b) {
-		this.program.removeAcademicYear(this, false);
-		this.program = program;
-		if (b) {
-			program.addAcademicYear(this, true);
+		if (this.program != null) {
+			this.program.removeAcademicYear(this, false);
 		}
+		this.program = program;
+		if (b && this.program != null) {
+			program.addAcademicYear(this, false);
+		}
+	}
+
+	public Program getProgram() {
+		return program;
 	}
 
 	public void setProgram(Program program) {

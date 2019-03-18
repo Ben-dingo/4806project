@@ -41,7 +41,9 @@ public class CategoryTest extends TestCase {
     public void testAddRemoveObjective() {
         category.addObjective(lo);
         assertTrue(category.learningObjectives.contains(lo));
+        assertTrue(lo.categories.contains(category));
         category.removeObjective(lo);
         assertTrue(category.learningObjectives.isEmpty());
+        assertTrue(lo.categories.isEmpty());
     }
 }

@@ -31,6 +31,7 @@ public class Course {
 	public Course(String name) {
 		this.name = name;
 		learningObjectives = new ArrayList<learningFeatures.LearningObjective>();
+		academicYears = new ArrayList<>();
 	}
 
 	public void addAcademicYear(AcademicYear year, boolean b) {

@@ -53,14 +53,18 @@ public class LearningObjectivesTest extends TestCase {
     public void testAddRemoveCourses() {
         lo.addCourse(course1);
         assertTrue(lo.courses.contains(course1));
+        assertTrue(course1.learningObjectives.contains(lo));
         lo.removeCourse(course1);
         assertTrue(lo.courses.isEmpty());
+        assertTrue(course1.learningObjectives.isEmpty());
     }
 
     public void testAddRemoveCategories() {
         lo.addCategory(category1);
         assertTrue(lo.categories.contains(category1));
+        assertTrue(category1.learningObjectives.contains(lo));
         lo.removeCategory(category1);
         assertTrue(lo.categories.isEmpty());
+        assertTrue(category1.learningObjectives.isEmpty());
     }
 }

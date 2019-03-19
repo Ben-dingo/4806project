@@ -12,11 +12,11 @@ public class LearningObjective {
 	private String name;
 	private String description;
 
-	@ManyToMany(mappedBy="entries")
-	private List<Course> courses;
+	@ManyToMany(mappedBy= "learningObjectives")
+	protected List<Course> courses;
 
-	@ManyToMany(mappedBy="entries")
-	private List<Category> categories;
+	@ManyToMany(mappedBy= "learningObjectives")
+	protected List<Category> categories;
 
 	public LearningObjective() {
 		this("new", "new");
@@ -33,24 +33,16 @@ public class LearningObjective {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
-	public List<Course> getCourses() {
-		return courses;
-	}
-
-	public void setCourse(List<Course> courses) {
-		this.courses = courses;
-	}
-
-	public List<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
@@ -72,8 +64,53 @@ public class LearningObjective {
 		return Long.hashCode(id);
 	}
 
+	@Deprecated
 	public String toString(){
 		String returning = name + ": " + description;
 		return returning;
+	}
+
+	public void addCourse(Course course, boolean b) {
+		courses.add(course);
+		if (b) {
+			course.addObjective(this, false);
+		}
+	}
+
+	public void addCourse(Course course) {
+		addCourse(course, true);
+	}
+
+	public void removeCourse(Course course, boolean b) {
+		courses.remove(course);
+		if (b) {
+			course.removeObjective(this, false);
+		}
+	}
+
+	public void removeCourse(Course course) {
+		removeCourse(course, true);
+	}
+
+	public void addCategory(Category category, boolean b) {
+		categories.add(category);
+		if (b) {
+			category.addObjective(this, false);
+		}
+	}
+
+	public void addCategory(Category category) {
+		addCategory(category, true);
+	}
+
+	public void removeCategory(Category category, boolean b) {
+		categories.remove(category);
+		if (b) {
+			category.removeObjective(this, false);
+		}
+	}
+
+	public void removeCategory(Category category) {
+		removeCategory(category, true);
 	}
 }

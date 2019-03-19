@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,9 +23,11 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class httpTest {
 	@Autowired
 	private MockMvc mockMvc;
+	int counter = 0;
 	List<String> objectNames;
 	List<String> descriptions;
 	List<String> objAssocs;
@@ -34,6 +37,11 @@ public class httpTest {
 
 	List<String> categoryNames;
 	List<String> categoryAssocs;
+
+	private int getNextID() {
+		counter++;
+		return counter;
+	}
 
 	@Test
 	public void objectiveCourseTest() throws Exception {
@@ -47,31 +55,25 @@ public class httpTest {
 
 		objectNames.add("Negotiate with Demons");
 		descriptions.add("Student is capable of negotiating favourable terms with demons.");
-		objAssocs.add("/objective/1");
+		objAssocs.add("/objective/" + getNextID());
 
 		objectNames.add("Identify Items");
 		descriptions.add("Can identify items");
-		objAssocs.add("/objective/2");
+		objAssocs.add("/objective/" + getNextID());
 
 		objectNames.add("Pointer Arithmetic");
 		descriptions.add("Can use C Arrays");
-		objAssocs.add("/objective/3");
+		objAssocs.add("/objective/" + getNextID());
 
 		objectNames.add("Writing Requirements");
 		descriptions.add("Can write well defined requirements");
-		objAssocs.add("/objective/4");
+		objAssocs.add("/objective/" + getNextID());
 
 		courseNames.add("Magic 101");
-		courseAssocs.add("/course/5");
+		courseAssocs.add("/course/" + getNextID());
 
 		courseNames.add("Software Engineering 101");
-		courseAssocs.add("/course/6");
-
-		categoryNames.add("Communication Skills");
-		categoryAssocs.add("/category/7");
-
-		categoryNames.add("Technical Skills");
-		categoryAssocs.add("/category/8");
+		courseAssocs.add("/course/" + getNextID());
 
 		for (int n = 0; n < objectNames.size(); n++) {
 			postObjective(n);
@@ -81,33 +83,76 @@ public class httpTest {
 			postCourse(n);
 		}
 
-		for (int n = 0; n < categoryNames.size(); n++) {
-			postCategory(n);
-		}
-
 		associateObjectiveCourse(0, 0);
 		associateObjectiveCourse(0, 1);
 
 		associateObjectiveCourse(1, 2);
 		associateObjectiveCourse(1, 3);
 
-		associateObjectiveCategory(0, 0);
-		associateObjectiveCategory(0, 3);
-
-		associateObjectiveCategory(1, 1);
-		associateObjectiveCategory(1, 2);
-
 		testCourseObjective(0, 0);
 		testCourseObjective(0, 1);
 
 		testCourseObjective(1, 2);
 		testCourseObjective(1, 3);
+	}
+
+	@Test
+	public void objectiveCategoryTest() throws Exception {
+		objectNames = new ArrayList<String>();
+		descriptions = new ArrayList<String>();
+		objAssocs = new ArrayList<String>();
+		courseNames = new ArrayList<String>();
+		courseAssocs = new ArrayList<String>();
+		categoryNames = new ArrayList<String>();
+		categoryAssocs = new ArrayList<String>();
+
+		objectNames.add("Negotiate with Demons");
+		descriptions.add("Student is capable of negotiating favourable terms with demons.");
+		objAssocs.add("/objective/" + getNextID());
+
+		objectNames.add("Identify Items");
+		descriptions.add("Can identify items");
+		objAssocs.add("/objective/" + getNextID());
+
+		objectNames.add("Pointer Arithmetic");
+		descriptions.add("Can use C Arrays");
+		objAssocs.add("/objective/" + getNextID());
+
+		objectNames.add("Writing Requirements");
+		descriptions.add("Can write well defined requirements");
+		objAssocs.add("/objective/" + getNextID());
+
+		objectNames.add("Lambda Functions");
+		descriptions.add("Knows when to use lambda functions");
+		objAssocs.add("/objective/" + getNextID());
+
+		categoryNames.add("Communication Skills");
+		categoryAssocs.add("/category/" + getNextID());
+
+		categoryNames.add("Technical Skills");
+		categoryAssocs.add("/category/" + getNextID());
+
+		for (int n = 0; n < objectNames.size(); n++) {
+			postObjective(n);
+		}
+
+		for (int n = 0; n < categoryNames.size(); n++) {
+			postCategory(n);
+		}
+
+		associateObjectiveCategory(0, 0);
+		associateObjectiveCategory(0, 3);
+
+		associateObjectiveCategory(1, 1);
+		associateObjectiveCategory(1, 2);
+		associateObjectiveCategory(1, 4);
 
 		testCategoryObjective(0, 0);
 		testCategoryObjective(0, 3);
 
 		testCategoryObjective(1, 1);
 		testCategoryObjective(1, 2);
+		testCategoryObjective(1, 4);
 	}
 
 	private void postObjective(int objID) throws Exception {
@@ -136,26 +181,26 @@ public class httpTest {
 	}
 
 	private void associateObjectiveCourse(int courseID, int objID) throws Exception {
-		this.mockMvc.perform(post(courseAssocs.get(courseID) + "/entries").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
+		this.mockMvc.perform(post(courseAssocs.get(courseID) + "/learningObjectives").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
 	}
 
 	private void associateObjectiveCategory(int categoryID, int objID) throws Exception {
-		this.mockMvc.perform(post(categoryAssocs.get(categoryID) + "/entries").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
+		this.mockMvc.perform(post(categoryAssocs.get(categoryID) + "/learningObjectives").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
 	}
 
 	private void testCourseObjective(int courseID, int objID) throws Exception {
 		String nameTest = "\"name\" : \"" + objectNames.get(objID) + "\"";
 		String descTest = "\"description\" : \"" + descriptions.get(objID) + "\"";
 
-		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
-		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(descTest)));
+		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
+		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(descTest)));
 	}
 
 	private void testCategoryObjective(int categoryID, int objID) throws Exception {
 		String nameTest = "\"name\" : \"" + objectNames.get(objID) + "\"";
 		String descTest = "\"description\" : \"" + descriptions.get(objID) + "\"";
 
-		this.mockMvc.perform(get(categoryAssocs.get(categoryID) +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
-		this.mockMvc.perform(get(categoryAssocs.get(categoryID) +"/entries")).andExpect(status().isOk()).andExpect(content().string(containsString(descTest)));
+		this.mockMvc.perform(get(categoryAssocs.get(categoryID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
+		this.mockMvc.perform(get(categoryAssocs.get(categoryID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(descTest)));
 	}
 }

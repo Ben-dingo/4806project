@@ -13,7 +13,7 @@ public class Category {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "category_objective",
-			joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
+			joinColumns = @JoinColumn(name = "cat_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "obj_id", referencedColumnName = "id"))
 	protected List<LearningObjective> learningObjectives;
 

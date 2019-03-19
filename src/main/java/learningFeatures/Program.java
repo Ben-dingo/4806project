@@ -14,7 +14,10 @@ public class Program {
 	@OneToMany(mappedBy = "program")
 	protected List<AcademicYear> academicYears;
 
-	@OneToMany(mappedBy = "program")
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "program_calendarYear",
+			joinColumns = @JoinColumn(name = "program_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "calendarYear_id", referencedColumnName = "id"))
 	protected List<CalendarYear> calendarYears;
 
 	public Program() {
@@ -57,25 +60,26 @@ public class Program {
 		removeAcademicYear(year, true);
 	}
 
-	public void addCalendarYear(CalendarYear year, boolean b) {
-		calendarYears.add(year);
+	public void removeCalendarYear(CalendarYear calendarYear, boolean b) {
+		calendarYears.remove(calendarYear);
 		if (b) {
-			year.setProgram(this, false);
+			calendarYear.removeProgram(this, false);
 		}
 	}
 
-	public void addCalendarYear(CalendarYear year) {
-		addCalendarYear(year, true);
+	public void removeCalendarYear(CalendarYear calendarYear) {
+		removeCalendarYear(calendarYear, true);
 	}
 
-	public void removeCalendarYear(CalendarYear year, boolean b) {
-		calendarYears.remove(year);
+	public void addCalendarYear(CalendarYear calendarYear, boolean b) {
+		calendarYears.add(calendarYear);
 		if (b) {
-			year.setProgram(null, false);
+			calendarYear.addProgram(this, false);
 		}
 	}
 
-	public void removeCalendarYear(CalendarYear year) {
-		removeCalendarYear(year, true);
+	public void addCalendarYear(CalendarYear calendarYear) {
+		addCalendarYear(calendarYear, true);
 	}
+
 }

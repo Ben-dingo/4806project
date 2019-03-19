@@ -41,9 +41,9 @@ public class ProgramTest extends TestCase {
 	public void testAddRemoveCalendarYear() {
 		newProgram.addCalendarYear(calendarYear);
 		assertTrue(newProgram.calendarYears.contains(calendarYear));
-		assertTrue(calendarYear.getProgram().equals(newProgram));
+		assertTrue(calendarYear.programs.contains(newProgram));
 		newProgram.removeCalendarYear(calendarYear);
 		assertTrue(newProgram.calendarYears.isEmpty());
-		assertTrue(calendarYear.getProgram() == null);
+		assertTrue(calendarYear.programs.isEmpty());
 	}
 }

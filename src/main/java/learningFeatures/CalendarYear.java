@@ -15,9 +15,8 @@ public class CalendarYear {
     @ManyToMany(mappedBy= "calendarYears")
     protected List<Course> courses;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="program_id")
-    private Program program;
+    @ManyToMany(mappedBy = "calendarYears")
+    protected List<Program> programs;
 
     public CalendarYear() {
         this(0);
@@ -25,7 +24,7 @@ public class CalendarYear {
 
     public CalendarYear(int year) {
         this.year = year;
-        this.program = null;
+        programs = new ArrayList<>();
         courses = new ArrayList<>();
     }
 
@@ -59,21 +58,25 @@ public class CalendarYear {
         addCourse(course, true);
     }
 
-    public void setProgram(Program program, boolean b) {
-        if (this.program != null) {
-            this.program.removeCalendarYear(this, false);
-        }
-        this.program = program;
-        if (b && this.program != null) {
+    public void addProgram(Program program, boolean b) {
+        programs.add(program);
+        if (b) {
             program.addCalendarYear(this, false);
         }
     }
 
-    public Program getProgram() {
-        return program;
+    public void addProgram(Program program) {
+        addProgram(program, true);
     }
 
-    public void setProgram(Program program) {
-        setProgram(program, true);
+    public void removeProgram(Program program, boolean b) {
+        programs.remove(program);
+        if (b) {
+            program.removeCalendarYear(this, false);
+        }
+    }
+
+    public void removeProgram(Program program) {
+        removeProgram(program, true);
     }
 }

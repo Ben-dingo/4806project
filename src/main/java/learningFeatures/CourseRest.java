@@ -51,10 +51,19 @@ public class CourseRest {
     }
 
     @GetMapping("/viewCourses")//prints all courses, will get messy in larger repositories
-    public String viewCourse() {
+    public String viewCourses() {
         String returning = "";
         for (Course courses : courses.findAll()) {
                 returning += courses.toString() + " ";
+        }
+        return returning;
+    }
+
+    @GetMapping("/viewCourseNames")//gets a string of all course names, used for the search dropdown menu later
+    public String viewCourseNames() {
+        String returning = "";
+        for (Course courses : courses.findAll()) {
+            returning += courses.getName() + ",";
         }
         return returning;
     }
@@ -101,6 +110,14 @@ public class CourseRest {
         return returning;
     }
 
+    @GetMapping("/viewCatNames")//gets a string of all category names, used for the search dropdown menu later
+    public String viewCatNames() {
+        String returning = "";
+        for (Category cats : categories.findAll()) {
+            returning += cats.getName() + ",";
+        }
+        return returning;
+    }
 
     @GetMapping("/newObjective")//makes a new objective with name and description, not related to courses or categories yet
     public String newObjective(@RequestParam(name="id") String name, @RequestParam(name="name") String desc) {
@@ -133,6 +150,15 @@ public class CourseRest {
         String returning = "";
         for (LearningObjective objectives: objectives.findAll()) {
             returning += objectives.toString() + " ";
+        }
+        return returning;
+    }
+
+    @GetMapping("/viewObjectNames")//gets a string of all course names, used for the search dropdown menu later
+    public String viewObjectNames() {
+        String returning = "";
+        for (LearningObjective objectives : objectives.findAll()) {
+            returning += objectives.getName() + ",";
         }
         return returning;
     }

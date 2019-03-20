@@ -28,7 +28,10 @@ public class LearningObjective {
 		this.courses = new ArrayList<Course>();
 		this.categories = new ArrayList<Category>();
 	}
-
+	
+	public List<Course> getCourses() {
+		return courses;
+	}
 	public String getName() {
 		return name;
 	}

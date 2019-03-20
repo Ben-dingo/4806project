@@ -14,12 +14,13 @@ import java.util.Optional;
 @EnableAutoConfiguration
 public class MainController {
 
-	@Autowired
-	LearningObjectiveRepository repo;
 
 	@GetMapping("/")
 	public String home(Model model) {
 		return "homePage";
 	}
+
+	@GetMapping("/admin")
+	public String admin(Model model) {return "admin";}
 
 }

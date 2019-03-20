@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <title>Admin Menu</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script th:src="@{/js/address.js}"></script>
+</head>
+<body>
+<div id="RadioForm">
+    Select a Function.
+    <form id="radioSet">
+        <input type="radio" name="funcType" value="newCourse" onClick="funcPrep(1)">newCourse(courseName)<br>
+        <input type="radio" name="funcType" value="addCourseOutcome" onClick="funcPrep(2)">addCourseOutcome(courseName,objectiveName)<br>
+        <input type="radio" name="funcType" value="viewCourse" onClick="funcPrep(1)">viewCourse(courseName)<br>
+        <input type="radio" name="funcType" value="viewCourses" onClick="funcPrep(0)">viewCourses()<br>
+        <input type="radio" name="funcType" value="newCat" onClick="funcPrep(1)">newCat(catName)<br>
+        <input type="radio" name="funcType" value="addCatOutcome" onClick="funcPrep(2)">addCatOutcome(catName,objectiveName)<br>
+        <input type="radio" name="funcType" value="viewCat" onClick="funcPrep(1)">viewCat(catName)<br>
+        <input type="radio" name="funcType" value="viewCats" onClick="funcPrep(0)">viewCats()<br>
+        <input type="radio" name="funcType" value="newObjective" onClick="funcPrep(2)">newObjective(objectName,objectDescription)<br>
+        <input type="radio" name="funcType" value="viewObjective" onClick="funcPrep(1)">viewObjective(objectName)<br>
+        <input type="radio" name="funcType" value="viewObjectives" onClick="funcPrep(0)">viewObjectives()<br>
+        <input type="radio" name="funcType" value="viewObjectiveCourses" onClick="funcPrep(1)">viewObjectiveCourses(objectName)<br>
+    </form>
+</div>
+
+<div id="input1" style="visibility:hidden">
+    <form id="firstPara">
+        <input type="text" id="para1" name="parameter1" value="parameter1">
+    </form>
+</div>
+
+<div id="input2" style="visibility:hidden">
+    <form id="secondPara">
+        <input type="text" id="para2" name="parameter2" value="parameter2"><br>
+    </form>
+</div>
+
+<div id="SubForm">
+    <form id="Submitting">
+        <button type="button" onclick="funcSub()">Submit</button>
+    </form>
+</div>
+</body>
+
+<script language="Javascript">
+    var paras = 0;
+
+    function funcPrep(parameters) {
+        if(parameters === 0){
+            paras = 0;
+            document.getElementById("input1").style.visibility="hidden";
+            document.getElementById("input2").style.visibility="hidden";
+        }
+        else if(parameters === 1){
+            paras = 1;
+            document.getElementById("input1").style.visibility="visible";
+            document.getElementById("input2").style.visibility="hidden";
+        }
+        else if(parameters === 2){
+            paras = 2;
+            document.getElementById("input1").style.visibility="visible";
+            document.getElementById("input2").style.visibility="visible";
+        }
+    }
+    function funcSub() {
+        var parameter1 = document.getElementById("para1").value;
+        var parameter2 = document.getElementById("para2").value;
+        var radios = document.getElementsByName("funcType");
+        var functionType = "";
+
+        for(var i = 0; i < radios.length; i++){
+            if(radios[i].checked){functionType = radios[i].value;}
+        }
+        if(paras === 0){
+            $.ajax({
+                url: window.location.protocol + "//" + window.location.hostname + "/"+ functionType
+            }).then(function(data) {
+                alert(data);
+            });
+        }
+        else if(paras === 1){
+            $.ajax({
+                url: window.location.protocol + "//" + window.location.hostname + "/"+ functionType + "?id=" + parameter1
+            }).then(function(data) {
+                alert(data);
+            });
+        }
+        else{
+            $.ajax({
+                url: window.location.protocol + "//" + window.location.hostname + "/"+ functionType + "?id=" + parameter1 + "&name=" + parameter2
+            }).then(function(data) {
+                alert(data);
+            });
+        }
+    }
+</script>
+</html>

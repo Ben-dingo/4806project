@@ -23,6 +23,11 @@ public class Course {
 			inverseJoinColumns = @JoinColumn(name = "academicYear_id", referencedColumnName = "id"))
 	protected List<learningFeatures.AcademicYear> academicYears;
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "course_calendarYear",
+			joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "calendarYear_id", referencedColumnName = "id"))
+	protected List<CalendarYear> calendarYears;
 
 	public Course() {
 		this("new");
@@ -32,6 +37,7 @@ public class Course {
 		this.name = name;
 		learningObjectives = new ArrayList<learningFeatures.LearningObjective>();
 		academicYears = new ArrayList<>();
+		calendarYears = new ArrayList<>();
 	}
 
 	public void addAcademicYear(AcademicYear year, boolean b) {
@@ -54,6 +60,28 @@ public class Course {
 
 	public void removeAcademicYear(AcademicYear year) {
 		removeAcademicYear(year, true);
+	}
+
+	public void addCalendarYear(CalendarYear year, boolean b) {
+		calendarYears.add(year);
+		if (b) {
+			year.addCourse(this, false);
+		}
+	}
+
+	public void addCalendarYear(CalendarYear year) {
+		addCalendarYear(year, true);
+	}
+
+	public void removeCalendarYear(CalendarYear year, boolean b) {
+		calendarYears.remove(year);
+		if (b) {
+			year.removeCourse(this, false);
+		}
+	}
+
+	public void removeCalendarYear(CalendarYear year) {
+		removeCalendarYear(year, true);
 	}
 
 	public void removeObjective(LearningObjective obj, boolean b) {

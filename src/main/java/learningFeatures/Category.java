@@ -59,7 +59,7 @@ public class Category {
 	public String toString()
 	{
 		String returning = name + " (";
-		for(LearningObjective objectives : entries){
+		for(LearningObjective objectives : learningObjectives){
 			returning += objectives.toString() + ", ";
 		}
 		returning = returning.substring(0, returning.length()-2);

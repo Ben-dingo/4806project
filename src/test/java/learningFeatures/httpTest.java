@@ -29,9 +29,9 @@ public class httpTest {
 	@Autowired
 	private MockMvc mockMvc;
 	int counter = 0;
-	List<String> objectNames;
-	List<String> descriptions;
-	List<String> objAssocs;
+	List<String> objectiveNames;
+	List<String> objectiveDescriptions;
+	List<String> objectiveAssocs;
 
 	List<String> courseNames;
 	List<String> courseAssocs;
@@ -46,6 +46,8 @@ public class httpTest {
 	List<String> programNames;
 	List<String> programAssocs;
 
+	List<Integer> calendarYearYears;	List<String> calendarYearAssocs;
+
 	private int getNextID() {
 		counter++;
 		return counter;
@@ -53,27 +55,27 @@ public class httpTest {
 
 	@Test
 	public void objectiveCourseTest() throws Exception {
-		objectNames = new ArrayList<String>();
-		descriptions = new ArrayList<String>();
-		objAssocs = new ArrayList<String>();
+		objectiveNames = new ArrayList<String>();
+		objectiveDescriptions = new ArrayList<String>();
+		objectiveAssocs = new ArrayList<String>();
 		courseNames = new ArrayList<String>();
 		courseAssocs = new ArrayList<String>();
 
-		objectNames.add("Negotiate with Demons");
-		descriptions.add("Student is capable of negotiating favourable terms with demons.");
-		objAssocs.add("/objective/" + getNextID());
+		objectiveNames.add("Negotiate with Demons");
+		objectiveDescriptions.add("Student is capable of negotiating favourable terms with demons.");
+		objectiveAssocs.add("/objective/" + getNextID());
 
-		objectNames.add("Identify Items");
-		descriptions.add("Can identify items");
-		objAssocs.add("/objective/" + getNextID());
+		objectiveNames.add("Identify Items");
+		objectiveDescriptions.add("Can identify items");
+		objectiveAssocs.add("/objective/" + getNextID());
 
-		objectNames.add("Pointer Arithmetic");
-		descriptions.add("Can use C Arrays");
-		objAssocs.add("/objective/" + getNextID());
+		objectiveNames.add("Pointer Arithmetic");
+		objectiveDescriptions.add("Can use C Arrays");
+		objectiveAssocs.add("/objective/" + getNextID());
 
-		objectNames.add("Writing Requirements");
-		descriptions.add("Can write well defined requirements");
-		objAssocs.add("/objective/" + getNextID());
+		objectiveNames.add("Writing Requirements");
+		objectiveDescriptions.add("Can write well defined requirements");
+		objectiveAssocs.add("/objective/" + getNextID());
 
 		courseNames.add("Magic 101");
 		courseAssocs.add("/course/" + getNextID());
@@ -81,7 +83,7 @@ public class httpTest {
 		courseNames.add("Software Engineering 101");
 		courseAssocs.add("/course/" + getNextID());
 
-		for (int n = 0; n < objectNames.size(); n++) {
+		for (int n = 0; n < objectiveNames.size(); n++) {
 			postObjective(n);
 		}
 
@@ -89,11 +91,11 @@ public class httpTest {
 			postCourse(n);
 		}
 
-		associateObjectiveCourse(0, 0);
-		associateObjectiveCourse(0, 1);
+		associateCourseObjective(0, 0);
+		associateCourseObjective(0, 1);
 
-		associateObjectiveCourse(1, 2);
-		associateObjectiveCourse(1, 3);
+		associateCourseObjective(1, 2);
+		associateCourseObjective(1, 3);
 
 		testCourseObjective(0, 0);
 		testCourseObjective(0, 1);
@@ -104,31 +106,31 @@ public class httpTest {
 
 	@Test
 	public void objectiveCategoryTest() throws Exception {
-		objectNames = new ArrayList<String>();
-		descriptions = new ArrayList<String>();
-		objAssocs = new ArrayList<String>();
+		objectiveNames = new ArrayList<String>();
+		objectiveDescriptions = new ArrayList<String>();
+		objectiveAssocs = new ArrayList<String>();
 		categoryNames = new ArrayList<String>();
 		categoryAssocs = new ArrayList<String>();
 
-		objectNames.add("Negotiate with Demons");
-		descriptions.add("Student is capable of negotiating favourable terms with demons.");
-		objAssocs.add("/objective/" + getNextID());
+		objectiveNames.add("Negotiate with Demons");
+		objectiveDescriptions.add("Student is capable of negotiating favourable terms with demons.");
+		objectiveAssocs.add("/objective/" + getNextID());
 
-		objectNames.add("Identify Items");
-		descriptions.add("Can identify items");
-		objAssocs.add("/objective/" + getNextID());
+		objectiveNames.add("Identify Items");
+		objectiveDescriptions.add("Can identify items");
+		objectiveAssocs.add("/objective/" + getNextID());
 
-		objectNames.add("Pointer Arithmetic");
-		descriptions.add("Can use C Arrays");
-		objAssocs.add("/objective/" + getNextID());
+		objectiveNames.add("Pointer Arithmetic");
+		objectiveDescriptions.add("Can use C Arrays");
+		objectiveAssocs.add("/objective/" + getNextID());
 
-		objectNames.add("Writing Requirements");
-		descriptions.add("Can write well defined requirements");
-		objAssocs.add("/objective/" + getNextID());
+		objectiveNames.add("Writing Requirements");
+		objectiveDescriptions.add("Can write well defined requirements");
+		objectiveAssocs.add("/objective/" + getNextID());
 
-		objectNames.add("Lambda Functions");
-		descriptions.add("Knows when to use lambda functions");
-		objAssocs.add("/objective/" + getNextID());
+		objectiveNames.add("Lambda Functions");
+		objectiveDescriptions.add("Knows when to use lambda functions");
+		objectiveAssocs.add("/objective/" + getNextID());
 
 		categoryNames.add("Communication Skills");
 		categoryAssocs.add("/category/" + getNextID());
@@ -136,7 +138,7 @@ public class httpTest {
 		categoryNames.add("Technical Skills");
 		categoryAssocs.add("/category/" + getNextID());
 
-		for (int n = 0; n < objectNames.size(); n++) {
+		for (int n = 0; n < objectiveNames.size(); n++) {
 			postObjective(n);
 		}
 
@@ -144,12 +146,12 @@ public class httpTest {
 			postCategory(n);
 		}
 
-		associateObjectiveCategory(0, 0);
-		associateObjectiveCategory(0, 3);
+		associateCategoryObjective(0, 0);
+		associateCategoryObjective(0, 3);
 
-		associateObjectiveCategory(1, 1);
-		associateObjectiveCategory(1, 2);
-		associateObjectiveCategory(1, 4);
+		associateCategoryObjective(1, 1);
+		associateCategoryObjective(1, 2);
+		associateCategoryObjective(1, 4);
 
 		testCategoryObjective(0, 0);
 		testCategoryObjective(0, 3);
@@ -290,12 +292,120 @@ public class httpTest {
 		associateProgramAcademicYear(0, 2);
 
 		testProgramAcademicYear(0, 0);
+
+		associateProgramAcademicYear(1, 2);
+
+		testProgramAcademicYear(1, 2);
+	}
+
+	@Test
+	public void calendarYearCourseTest() throws Exception {
+		courseNames = new ArrayList<String>();
+		courseAssocs = new ArrayList<String>();
+
+		calendarYearYears = new ArrayList<>();
+		calendarYearAssocs = new ArrayList<>();
+
+		courseNames.add("Magic 101");
+		courseAssocs.add("/course/" + getNextID());
+
+		courseNames.add("Software Engineering 101");
+		courseAssocs.add("/course/" + getNextID());
+
+		courseNames.add("Software Engineering 101");
+		courseAssocs.add("/course/" + getNextID());
+
+		calendarYearYears.add(2015);
+		calendarYearAssocs.add("/calendaryear/" + getNextID());
+
+		calendarYearYears.add(2016);
+		calendarYearAssocs.add("/calendaryear/" + getNextID());
+
+		calendarYearYears.add(2017);
+		calendarYearAssocs.add("/calendaryear/" + getNextID());
+
+		for (int n = 0; n < courseNames.size(); n++) {
+			postCourse(n);
+		}
+
+		for (int n = 0; n < calendarYearYears.size(); n++) {
+			postCalendarYear(n);
+		}
+
+		associateCourseCalendarYear(0, 0);
+		associateCourseCalendarYear(0, 1);
+		associateCourseCalendarYear(0, 2);
+
+		associateCourseCalendarYear(1, 0);
+		associateCourseCalendarYear(1, 1);
+
+		associateCourseCalendarYear(2, 2);
+
+		testCourseCalendarYear(0, 0);
+		testCourseCalendarYear(0, 1);
+		testCourseCalendarYear(0, 2);
+
+		testCourseCalendarYear(1, 0);
+		testCourseCalendarYear(1, 1);
+		testCourseCalendarYear(2, 2);
+	}
+
+	@Test
+	public void calendarYearProgramTest() throws Exception {
+		programNames = new ArrayList<String>();
+		programAssocs = new ArrayList<String>();
+
+		calendarYearYears = new ArrayList<>();
+		calendarYearAssocs = new ArrayList<>();
+
+		programNames.add("Applied Magic");
+		programAssocs.add("/program/" + getNextID());
+
+		programNames.add("Software Engineering");
+		programAssocs.add("/program/" + getNextID());
+
+		programNames.add("Software Engineering");
+		programAssocs.add("/program/" + getNextID());
+
+		calendarYearYears.add(2015);
+		calendarYearAssocs.add("/calendaryear/" + getNextID());
+
+		calendarYearYears.add(2016);
+		calendarYearAssocs.add("/calendaryear/" + getNextID());
+
+		calendarYearYears.add(2017);
+		calendarYearAssocs.add("/calendaryear/" + getNextID());
+
+		for (int n = 0; n < programNames.size(); n++) {
+			postProgram(n);
+		}
+
+		for (int n = 0; n < calendarYearYears.size(); n++) {
+			postCalendarYear(n);
+		}
+
+		associateProgramCalendarYear(0, 0);
+		associateProgramCalendarYear(0, 1);
+		associateProgramCalendarYear(0, 2);
+
+		associateProgramCalendarYear(1, 0);
+		associateProgramCalendarYear(1, 1);
+
+		associateProgramCalendarYear(2, 2);
+
+		testProgramCalendarYear(0, 0);
+		testProgramCalendarYear(0, 1);
+		testProgramCalendarYear(0, 2);
+
+		testProgramCalendarYear(1, 0);
+		testProgramCalendarYear(1, 1);
+		testProgramCalendarYear(2, 2);
 	}
 
 	private void postObjective(int objID) throws Exception {
 		String retVal = "{";
-		retVal += "\"name\" : \"" + objectNames.get(objID) + "\",";
-		retVal += "\"description\" : \"" + descriptions.get(objID) + "\"";
+		retVal += "\"name\" : \"" + objectiveNames.get(objID) + "\",";
+		retVal += "\"description\" : \"" + objectiveDescriptions.get(objID) + "\"";
 		retVal += "}";
 
 		this.mockMvc.perform(post("/objective").contentType(MediaType.APPLICATION_JSON_UTF8).content(retVal)).andExpect(status().is2xxSuccessful());
@@ -333,12 +443,20 @@ public class httpTest {
 		this.mockMvc.perform(post("/program").contentType(MediaType.APPLICATION_JSON_UTF8).content(retVal)).andExpect(status().is2xxSuccessful());
 	}
 
-	private void associateObjectiveCourse(int courseID, int objID) throws Exception {
-		this.mockMvc.perform(post(courseAssocs.get(courseID) + "/learningObjectives").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
+	private void postCalendarYear(int calendarYearID) throws Exception {
+		String retVal = "{";
+		retVal += "\"year\" : " + calendarYearYears.get(calendarYearID);
+		retVal += "}";
+
+		this.mockMvc.perform(post("/calendaryear").contentType(MediaType.APPLICATION_JSON_UTF8).content(retVal)).andExpect(status().is2xxSuccessful());
 	}
 
-	private void associateObjectiveCategory(int categoryID, int objID) throws Exception {
-		this.mockMvc.perform(post(categoryAssocs.get(categoryID) + "/learningObjectives").contentType("text/uri-list").content(objAssocs.get(objID))).andExpect(status().is2xxSuccessful());
+	private void associateCourseObjective(int courseID, int objectiveID) throws Exception {
+		this.mockMvc.perform(post(courseAssocs.get(courseID) + "/learningObjectives").contentType("text/uri-list").content(objectiveAssocs.get(objectiveID))).andExpect(status().is2xxSuccessful());
+	}
+
+	private void associateCategoryObjective(int categoryID, int objectiveID) throws Exception {
+		this.mockMvc.perform(post(categoryAssocs.get(categoryID) + "/learningObjectives").contentType("text/uri-list").content(objectiveAssocs.get(objectiveID))).andExpect(status().is2xxSuccessful());
 	}
 
 	private void associateCourseAcademicYear(int courseID, int academicYearID) throws Exception {
@@ -349,17 +467,25 @@ public class httpTest {
 		this.mockMvc.perform(put(academicYearAssocs.get(academicYearID) +"/program").contentType("text/uri-list").content(programAssocs.get(programID))).andExpect(status().is2xxSuccessful());
 	}
 
-	private void testCourseObjective(int courseID, int objID) throws Exception {
-		String nameTest = "\"name\" : \"" + objectNames.get(objID) + "\"";
-		String descTest = "\"description\" : \"" + descriptions.get(objID) + "\"";
+	private void associateCourseCalendarYear(int courseID, int calendarYearID) throws Exception {
+		this.mockMvc.perform(post(courseAssocs.get(courseID) +"/calendarYears").contentType("text/uri-list").content(calendarYearAssocs.get(calendarYearID))).andExpect(status().is2xxSuccessful());
+	}
+
+	private void associateProgramCalendarYear(int programID, int calendarYearID) throws Exception {
+		this.mockMvc.perform(post(programAssocs.get(programID) +"/calendarYears").contentType("text/uri-list").content(calendarYearAssocs.get(calendarYearID))).andExpect(status().is2xxSuccessful());
+	}
+
+	private void testCourseObjective(int courseID, int objectiveID) throws Exception {
+		String nameTest = "\"name\" : \"" + objectiveNames.get(objectiveID) + "\"";
+		String descTest = "\"description\" : \"" + objectiveDescriptions.get(objectiveID) + "\"";
 
 		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
 		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(descTest)));
 	}
 
-	private void testCategoryObjective(int categoryID, int objID) throws Exception {
-		String nameTest = "\"name\" : \"" + objectNames.get(objID) + "\"";
-		String descTest = "\"description\" : \"" + descriptions.get(objID) + "\"";
+	private void testCategoryObjective(int categoryID, int objectiveID) throws Exception {
+		String nameTest = "\"name\" : \"" + objectiveNames.get(objectiveID) + "\"";
+		String descTest = "\"description\" : \"" + objectiveDescriptions.get(objectiveID) + "\"";
 
 		this.mockMvc.perform(get(categoryAssocs.get(categoryID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
 		this.mockMvc.perform(get(categoryAssocs.get(categoryID) +"/learningObjectives")).andExpect(status().isOk()).andExpect(content().string(containsString(descTest)));
@@ -375,5 +501,17 @@ public class httpTest {
 		String nameTest = "\"name\" : \"" + academicYearNames.get(academicYearID) + "\"";
 
 		this.mockMvc.perform(get(programAssocs.get(programID) +"/academicYears")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
+	}
+
+	private void testCourseCalendarYear(int courseID, int calendarYearID) throws Exception {
+		String nameTest = "\"year\" : " + calendarYearYears.get(calendarYearID);
+
+		this.mockMvc.perform(get(courseAssocs.get(courseID) +"/calendarYears")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
+	}
+
+	private void testProgramCalendarYear(int programID, int calendarYearID) throws Exception {
+		String nameTest = "\"year\" : " + calendarYearYears.get(calendarYearID);
+
+		this.mockMvc.perform(get(programAssocs.get(programID) +"/calendarYears")).andExpect(status().isOk()).andExpect(content().string(containsString(nameTest)));
 	}
 }

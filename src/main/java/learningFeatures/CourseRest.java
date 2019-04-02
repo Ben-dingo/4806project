@@ -33,6 +33,17 @@ public class CourseRest {
         return "Success";
     }
 
+    @GetMapping("/delCourse")//deletes a course from the repository
+    public String delCourse(@RequestParam(name="id") String id) {
+        for (Course course: courses.findAll()) {
+            if (course.getName().equals(id)) {
+                courses.delete(course);
+                return "Success";
+            }
+        }
+        return "Failure";
+    }
+
     @GetMapping("/addCourseOutcome")//adds a learning outcome to a course
     public String addCourseOutcome(@RequestParam(name="id") String id, @RequestParam(name="name") String name) {
 
@@ -83,6 +94,17 @@ public class CourseRest {
     public String newCategory(@RequestParam(name="id") String id) {
         categories.save(new Category(id));
         return "Success";
+    }
+
+    @GetMapping("/delCat")//deletes a category from the repository
+    public String delCategory(@RequestParam(name="id") String id) {
+        for (Category category: categories.findAll()) {
+            if (category.getName().equals(id)) {
+                categories.delete(category);
+                return "Success";
+            }
+        }
+        return "Failure";
     }
 
     @GetMapping("/addCatOutcome")//adds a learning outcome to a category
@@ -229,6 +251,17 @@ public class CourseRest {
     public String newObjective(@RequestParam(name="id") String name, @RequestParam(name="name") String desc) {
         objectives.save(new LearningObjective(name,desc));
         return "Success";
+    }
+
+    @GetMapping("/delObjective")//makes a new objective with name and description, not related to courses or categories yet
+    public String delObjective(@RequestParam(name="id") String id) {
+        for (LearningObjective objective: objectives.findAll()) {
+            if (objective.getName().equals(id)) {
+                objectives.delete(objective);
+                return "Success";
+            }
+        }
+        return "Failure";
     }
 
     @GetMapping("/viewObjective")//views an objective, searches by name

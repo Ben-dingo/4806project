@@ -302,4 +302,40 @@ public class CourseRest {
         return returning;
     }
 
+    //Calender Year section\\
+    @GetMapping("/newCalender")//makes a new calenderYear
+    public String newCalender(@RequestParam(name="id") int name) {
+        CYears.save(new CalendarYear(name));
+        return "Success";
+    }
+
+    @GetMapping("/delCalender")//makes a new calenderYear
+    public String delCalender(@RequestParam(name="id") int name) {
+        for(CalendarYear calendar : CYears.findAll()) {
+            if (calendar.getYear() == name) {
+                CYears.delete(calendar);
+                return "Success";
+            }
+        }
+        return "Failure";
+    }
+
+    //Academic Year section\\
+    @GetMapping("/newAcademic")//makes a new calenderYear
+    public String newAcademic(@RequestParam(name="id") String name) {
+        AYears.save(new AcademicYear(name));
+        return "Success";
+    }
+
+    @GetMapping("/delAcademic")//makes a new calenderYear
+    public String delAcademic(@RequestParam(name="id") String name) {
+        for(AcademicYear aca : AYears.findAll()) {
+            if (aca.getName().equals(name)) {
+                AYears.delete(aca);
+                return "Success";
+            }
+        }
+        return "Failure";
+    }
+
 }

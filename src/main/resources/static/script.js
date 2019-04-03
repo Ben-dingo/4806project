@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	// Setup the url variable.
-	var url = "http://localhost:8080";
+	var url = window.location.protocol + "//" + window.location.hostname;
 	// Setup the calendar dropdown box.
 	$.ajax({
 		url: url + "/calendaryear/",

@@ -15,12 +15,33 @@ public class CourseRest {
     CategoryRepository categories;
 
     @Autowired
+    ProgramRepository programs;
+
+    @Autowired
+    CalendarYearRepository CYears;
+
+    @Autowired
+    AcademicYearRepository AYears;
+
+    @Autowired
     LearningObjectiveRepository objectives; //setting up the repositories for the controller
 
+    //Courses section\\
     @GetMapping("/newCourse")//adds a new course to the repository, starts out empty
     public String newCourse(@RequestParam(name="id") String id) {
         courses.save(new Course(id));
         return "Success";
+    }
+
+    @GetMapping("/delCourse")//deletes a course from the repository
+    public String delCourse(@RequestParam(name="id") String id) {
+        for (Course course: courses.findAll()) {
+            if (course.getName().equals(id)) {
+                courses.delete(course);
+                return "Success";
+            }
+        }
+        return "Failure";
     }
 
     @GetMapping("/addCourseOutcome")//adds a learning outcome to a course
@@ -68,10 +89,22 @@ public class CourseRest {
         return returning;
     }
 
+    //Categories section\\
     @GetMapping("/newCat")//adds a new category to the repository, starts out empty
     public String newCategory(@RequestParam(name="id") String id) {
         categories.save(new Category(id));
         return "Success";
+    }
+
+    @GetMapping("/delCat")//deletes a category from the repository
+    public String delCategory(@RequestParam(name="id") String id) {
+        for (Category category: categories.findAll()) {
+            if (category.getName().equals(id)) {
+                categories.delete(category);
+                return "Success";
+            }
+        }
+        return "Failure";
     }
 
     @GetMapping("/addCatOutcome")//adds a learning outcome to a category
@@ -119,10 +152,116 @@ public class CourseRest {
         return returning;
     }
 
+    //Program section\\
+    @GetMapping("/newProg")//adds a new program to the repository, starts out empty
+    public String newProgram(@RequestParam(name="id") String id) {
+        programs.save(new Program(id));
+        return "Success";
+    }
+
+    @GetMapping("/delProg")//removes a program
+    public String delProgram(@RequestParam(name="id") String id) {
+        for (Program program: programs.findAll()) {
+            if (program.getName().equals(id)) {
+                programs.delete(program);
+                return "Success";
+            }
+        }
+        return "Failure";
+    }
+
+    @GetMapping("/addProgCalender")//adds a Calendar year to a program
+    public String addProgCalender(@RequestParam(name="id") String id, @RequestParam(name="name") Long name) {
+
+        for (Program program: programs.findAll()) {
+            if(program.getName().equals(id)) {
+                Program found = program;
+                programs.delete(program);//program has to be removed from the repository and re-added for the changes to persist. I'm not sure why
+                if(CYears.findById(name).isPresent())
+                {
+                    CalendarYear calendar = CYears.findById(name).get();
+                    found.addCalendarYear(calendar);
+                    programs.save(found);
+                    return "Success" + found.toString();
+                }
+                else
+                {
+                    programs.save(found);
+                    return "Failure";
+                }
+            }
+        }
+        return "Failure";
+    }
+
+    @GetMapping("/addProgAcademic")//adds an academic year to a program
+    public String addProgAcademic(@RequestParam(name="id") String id, @RequestParam(name="name") Long name) {
+
+        for (Program program: programs.findAll()) {
+            if(program.getName().equals(id)) {
+                Program found = program;
+                programs.delete(program);//program has to be removed from the repository and re-added for the changes to persist. I'm not sure why
+                if(AYears.findById(name).isPresent())
+                {
+                    AcademicYear academic = AYears.findById(name).get();
+                    found.addAcademicYear(academic);
+                    programs.save(found);
+                    return "Success" + found.toString();
+                }
+                else
+                {
+                    programs.save(found);
+                    return "Failure";
+                }
+            }
+        }
+        return "Failure";
+    }
+
+    @GetMapping("/viewProg")//prints the name and contents of a specific program
+    public String viewProg(@RequestParam(name="id") String id) {
+        for (Program program: programs.findAll()) {
+            if(program.getName().equals(id)) {
+                return program.toString();
+            }
+        }
+        return "Nothing";
+    }
+
+    @GetMapping("/viewProgs")//prints all programs, will get messy in larger repositories
+    public String viewProgs() {
+        String returning = "";
+        for (Program program: programs.findAll()) {
+            returning += program.toString() + " ";
+        }
+        return returning;
+    }
+
+    @GetMapping("/viewProgNames")//gets a string of all program names, used for the search dropdown menu later
+    public String viewProgNames() {
+        String returning = "";
+        for (Program program: programs.findAll()) {
+            returning += program.getName() + ",";
+        }
+        return returning;
+    }
+
+    //Learning Objective section\\
     @GetMapping("/newObjective")//makes a new objective with name and description, not related to courses or categories yet
     public String newObjective(@RequestParam(name="id") String name, @RequestParam(name="name") String desc) {
         objectives.save(new LearningObjective(name,desc));
         return "Success";
+    }
+
+    @GetMapping("/delObjective")//makes a new objective with name and description, not related to courses or categories yet
+    public String delObjective(@RequestParam(name="id") String id) {
+        for (LearningObjective objective: objectives.findAll()) {
+            if (objective.getName().equals(id)) {
+                objectives.delete(objective);
+                return "Success";
+            }
+        }
+        return "Failure";
     }
 
     @GetMapping("/viewObjective")//views an objective, searches by name
@@ -161,6 +300,42 @@ public class CourseRest {
             returning += objectives.getName() + ",";
         }
         return returning;
+    }
+
+    //Calender Year section\\
+    @GetMapping("/newCalender")//makes a new calenderYear
+    public String newCalender(@RequestParam(name="id") int name) {
+        CYears.save(new CalendarYear(name));
+        return "Success";
+    }
+
+    @GetMapping("/delCalender")//makes a new calenderYear
+    public String delCalender(@RequestParam(name="id") int name) {
+        for(CalendarYear calendar : CYears.findAll()) {
+            if (calendar.getYear() == name) {
+                CYears.delete(calendar);
+                return "Success";
+            }
+        }
+        return "Failure";
+    }
+
+    //Academic Year section\\
+    @GetMapping("/newAcademic")//makes a new calenderYear
+    public String newAcademic(@RequestParam(name="id") String name) {
+        AYears.save(new AcademicYear(name));
+        return "Success";
+    }
+
+    @GetMapping("/delAcademic")//makes a new calenderYear
+    public String delAcademic(@RequestParam(name="id") String name) {
+        for(AcademicYear aca : AYears.findAll()) {
+            if (aca.getName().equals(name)) {
+                AYears.delete(aca);
+                return "Success";
+            }
+        }
+        return "Failure";
     }
 
 }

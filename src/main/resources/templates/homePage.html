@@ -4,136 +4,57 @@
 	<meta charset="UTF-8">
 	<title>Course Viewer</title>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script th:src="@{/js/address.js}"></script>
+	<script th:src="@{/script.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"></link>
 </head>
 <body>
-<div id="RadioForm">
-	Select a search method.
-	<form id="radioSet">
-		<input type="radio" name="SearchType" value="course" onClick="courseSearch()">Search by Course<br>
-		<input type="radio" name="SearchType" value="cat" onClick="catSearch()">Search by Category<br>
-	</form>
-</div>
 
-<div>
-	<select id=courseDrop style="visibility: collapse">
-		<option value='Default'>Select course</option>
-	</select>
-</div>
+<table id=selectionForm>
+	<tr class="selectionBox">
+		<td>Calendar Year:</td>
+		<td>
+			<select id=calendarDrop>
+				<option value='none'>Select a calendar year</option>
+			</select>
+		</td>
+	</tr>
+	<tr id="programBox" class="selectionBox hidden">
+		<td>Program:</td>
+		<td>
+			<select id=programDrop>
+				<option value='none'>Select a program</option>
+			</select>
+		</td>
+	</tr>
+	<tr id="academicBox" class="selectionBox hidden">
+		<td>Academic Year:</td>
+		<td>
+			<select id=academicDrop>
+				<option value='none'>Select a academic year</option>
+			</select>
+		</td>
+	</tr>
+	<tr id="courseBox" class="selectionBox hidden">
+		<td>Course:</td>
+		<td>
+			<select id=courseDrop>
+				<option value='none'>Select a course</option>
+			</select>
+		</td>
+	</tr>
+	<tr id="categoryBox" class="selectionBox hidden">
+		<td>Category:</td>
+		<td>
+			<select id=categoryDrop>
+				<option value='none'>Select a category</option>
+			</select>
+		</td>
+	</tr>
+</table>
 
-<div>
-	<select id=catDrop style="visibility: collapse">
-		<option value='Default'>Select Category</option>
-	</select>
-</div>
+<div id="outputForm">
 
-<div id="SubForm" >
-	<form id="Submitting">
-		<button type="button" onclick="searchFunc()">Search</button>
-	</form>
-</div>
-
-<div>
-    <p id="table"></p>
-</div>
-
-<div id="AdminForm">
-	<form id="Adminlogon">
-		<input type="text" id="password" value="password">
-		<button type="button" onclick="logFunc()">Admin Login</button>
-	</form>
 </div>
 </body>
-
-<script language="Javascript">
-
-    function courseSearch() {
-        document.getElementById("courseDrop").style.visibility="visible";
-		document.getElementById("catDrop").style.visibility="collapse";
-    }
-    function catSearch() {
-		document.getElementById("courseDrop").style.visibility="collapse";
-		document.getElementById("catDrop").style.visibility="visible";
-    }
-
-    function searchFunc() {
-        var radios = document.getElementsByName("SearchType");
-		
-		if(radios[0].checked)
-		{
-			$.ajax({
-				url: window.location.protocol + "//" + window.location.hostname + "/viewCourse?id=" + document.getElementById('courseDrop').value
-			}).then(function(data){
-				tableFunc(data, "Course");
-			});
-		}
-		else if(radios[1].checked)
-		{
-
-			$.ajax({
-				url: window.location.protocol + "//" + window.location.hostname + "/viewCat?id=" + document.getElementById('catDrop').value
-			}).then(function(data){
-				tableFunc(data,"Category");
-			});
-		}
-		else{alert("Please select a search type.");}
-    }
-
-    function tableFunc(data, searchType){
-		var results = data.toString().slice(0, -1).split("(");
-
-		var objectives = results[1].split(",");
-		var output = "<header>Search by " + searchType + ": " + document.getElementById("courseDrop").value + "</header>";
-		output += "<table border='5'>\n" +
-				"<tr>" +
-				"<th>Outcome Name</th>" +
-				"<th>Outcome description</th>" +
-				"</tr>";
-		for (var i = 0; i < objectives.length; i++) {
-			var objective = objectives[i].split(":");
-			output += "<tr>" +
-					"<th>" + objective[0] + "</th>" +
-					"<th>" + objective[1] + "</th>" +
-					"</tr>";
-		}
-		output += "</table>";
-		document.getElementById("table").innerHTML = output;
-	}
-
-    function logFunc() {
-        var password = document.getElementById("password").value;
-        if(password == "IAmAdmin"){location.href= "admin"}
-        else{alert("THERE WILL BE CONSEQUENCES!");}
-    }
-
-	$(document).ready(function() {
-        $.ajax({
-            url: window.location.protocol + "//" + window.location.hostname + "/viewCourseNames"
-        }).then(function(data){
-            var innertext = dropdownFunc(data,"Course");
-            document.getElementById("courseDrop").innerHTML = innertext;
-        });
-
-        $.ajax({
-            url: window.location.protocol + "//" + window.location.hostname + "/viewCatNames"
-        }).then(function(data){
-            var innertext = dropdownFunc(data,"Category");
-            document.getElementById("catDrop").innerHTML = innertext;
-        });
-	});
-
-    function dropdownFunc(data, type){
-        var results = data.toString().split(",");
-        var output = "<select id='"+ type +"'>" +
-                "<option value='Default'>Select "+ type +"</option>";
-        for (var i = 0; i < results.length-1; i++) {
-            output += "<option value='"+ results[i] + "'>"+ results[i] + "</option>";
-        }
-        output += "</select>";
-        return output;
-    }
-</script>
-
-<!--<input type="radio" name="SearchType" value="year" onClick="yearSearch()">Search Program by Year-->
 
 </html>
